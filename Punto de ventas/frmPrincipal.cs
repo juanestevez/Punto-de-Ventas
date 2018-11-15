@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Punto_de_ventas.Connection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace Punto_de_ventas
         public FrmPrincipal()
         {
             InitializeComponent();
+            new Conexion();
         }
     }
 }
