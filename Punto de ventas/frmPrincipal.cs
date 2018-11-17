@@ -59,7 +59,7 @@ namespace Punto_de_ventas
             label_PagoCliente.ForeColor = Color.DarkCyan;
         }
 
-        private void radioPagosDeudas_CheckedChanged(object sender, EventArgs e)
+        private void RadioPagosDeudas_CheckedChanged(object sender, EventArgs e)
         {
             radioPagosDeudas.ForeColor = Color.DarkCyan;
             radioIngresarCliente.ForeColor = Color.Black;
@@ -77,19 +77,27 @@ namespace Punto_de_ventas
 
         }
 
-        private void textBox_Id_TextChanged(object sender, EventArgs e)
+        private void TextBox_Id_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void textBox_Id_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_Id_KeyPress(object sender, KeyPressEventArgs e)
         {
             evento.NumberKeyPress(e);
         }
 
         private void textBox_Nombre_TextChanged(object sender, EventArgs e)
         {
-
+            if (textBox_Nombre.Text == "")
+            {
+                label_Nombre.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                label_Nombre.Text = "Nombre completo";
+                label_Nombre.ForeColor = Color.Green;
+            }
         }
 
         private void textBox_Nombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -99,7 +107,15 @@ namespace Punto_de_ventas
 
         private void textBox_Apellido_TextChanged(object sender, EventArgs e)
         {
-
+            if (textBox_Apellido.Text == "")
+            {
+                textBox_Apellido.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                textBox_Apellido.Text = "Apellido";
+                textBox_Apellido.ForeColor = Color.Green;
+            }
         }
 
         private void textBox_Apellido_KeyPress(object sender, KeyPressEventArgs e)
@@ -109,9 +125,18 @@ namespace Punto_de_ventas
 
         private void textBox_Direccion_TextChanged(object sender, EventArgs e)
         {
-
+            if (textBox_Direccion.Text == "")
+            {
+                textBox_Direccion.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                textBox_Direccion.Text = "Dirección";
+                textBox_Direccion.ForeColor = Color.Green;
+            }
         }
 
+        
         private void textBox_Direccion_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -119,7 +144,15 @@ namespace Punto_de_ventas
 
         private void textBox_Telefono_TextChanged(object sender, EventArgs e)
         {
-
+            if (textBox_Telefono.Text == "")
+            {
+                textBox_Telefono.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                textBox_Telefono.Text = "Teléfono";
+                textBox_Telefono.ForeColor = Color.Green;
+            }
         }
 
         private void textBox_Telefono_KeyPress(object sender, KeyPressEventArgs e)
@@ -129,13 +162,27 @@ namespace Punto_de_ventas
 
         private void textBox_PagoscCliente_TextChanged(object sender, EventArgs e)
         {
-
+            if (textBox_PagoscCliente.Text == "")
+            {
+                textBox_PagoscCliente.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                textBox_PagoscCliente.Text = "Pago de deudas";
+                textBox_PagoscCliente.ForeColor = Color.Green;
+            }
         }
 
         private void textBox_PagoscCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
             evento.NumberDecimalKreyPress(textBox_PagoscCliente, e);
         }
+
+        private void Button_GuardarCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         #endregion
 
