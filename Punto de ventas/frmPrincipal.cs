@@ -16,7 +16,7 @@ namespace Punto_de_ventas
     {
         private string accion = "insert", paginas = "4", deudaActual, pago, día, fecha;
         TextBoxEvent evento = new TextBoxEvent();
-
+        Cliente cliente = new Cliente();
 
         public FrmPrincipal()
         {
@@ -48,7 +48,7 @@ namespace Punto_de_ventas
             radioIngresarCliente.ForeColor = Color.DarkCyan;
             radioPagosDeudas.ForeColor = Color.Black;
 
-            textBox_Id.ReadOnly = true;
+            textBox_Id.ReadOnly = false;
             textBox_Nombre.ReadOnly = false;
             textBox_Apellido.ReadOnly = false;
             textBox_Direccion.ReadOnly = false;
@@ -64,7 +64,7 @@ namespace Punto_de_ventas
             radioPagosDeudas.ForeColor = Color.DarkCyan;
             radioIngresarCliente.ForeColor = Color.Black;
 
-            textBox_Id.ReadOnly = true;
+            textBox_Id.ReadOnly = false;
             textBox_Nombre.ReadOnly = true;
             textBox_Apellido.ReadOnly = true;
             textBox_Direccion.ReadOnly = true;
@@ -79,7 +79,14 @@ namespace Punto_de_ventas
 
         private void TextBox_Id_TextChanged(object sender, EventArgs e)
         {
-
+            if (textBox_Id.Text == "")
+            {
+                label_Id.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                label_Id.ForeColor = Color.Green;
+            }
         }
 
         private void TextBox_Id_KeyPress(object sender, KeyPressEventArgs e)
@@ -87,7 +94,7 @@ namespace Punto_de_ventas
             evento.NumberKeyPress(e);
         }
 
-        private void textBox_Nombre_TextChanged(object sender, EventArgs e)
+        private void TextBox_Nombre_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Nombre.Text == "")
             {
@@ -100,67 +107,62 @@ namespace Punto_de_ventas
             }
         }
 
-        private void textBox_Nombre_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_Nombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             evento.TextKeyPress(e);
         }
 
-        private void textBox_Apellido_TextChanged(object sender, EventArgs e)
+        private void TextBox_Apellido_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Apellido.Text == "")
             {
-                textBox_Apellido.ForeColor = Color.LightSlateGray;
+                label_Apellido.ForeColor = Color.LightSlateGray;
             }
             else
             {
-                textBox_Apellido.Text = "Apellido";
-                textBox_Apellido.ForeColor = Color.Green;
+                label_Apellido.Text = "Apellido";
+                label_Apellido.ForeColor = Color.Green;
             }
         }
 
-        private void textBox_Apellido_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_Apellido_KeyPress(object sender, KeyPressEventArgs e)
         {
             evento.TextKeyPress(e);
         }
 
-        private void textBox_Direccion_TextChanged(object sender, EventArgs e)
+        private void TextBox_Direccion_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Direccion.Text == "")
             {
-                textBox_Direccion.ForeColor = Color.LightSlateGray;
+                label_Direccion.ForeColor = Color.LightSlateGray;
             }
             else
             {
-                textBox_Direccion.Text = "Dirección";
-                textBox_Direccion.ForeColor = Color.Green;
+                label_Direccion.Text = "Dirección";
+                label_Direccion.ForeColor = Color.Green;
             }
         }
 
-        
-        private void textBox_Direccion_KeyPress(object sender, KeyPressEventArgs e)
-        {
 
-        }
-
-        private void textBox_Telefono_TextChanged(object sender, EventArgs e)
+        private void TextBox_Telefono_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Telefono.Text == "")
             {
-                textBox_Telefono.ForeColor = Color.LightSlateGray;
+                label_Telefono.ForeColor = Color.LightSlateGray;
             }
             else
             {
-                textBox_Telefono.Text = "Teléfono";
-                textBox_Telefono.ForeColor = Color.Green;
+                label_Telefono.Text = "Teléfono";
+                label_Telefono.ForeColor = Color.Green;
             }
         }
 
-        private void textBox_Telefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_Telefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             evento.NumberKeyPress(e);
         }
 
-        private void textBox_PagoscCliente_TextChanged(object sender, EventArgs e)
+        private void TextBox_PagoscCliente_TextChanged(object sender, EventArgs e)
         {
             if (textBox_PagoscCliente.Text == "")
             {
@@ -173,16 +175,68 @@ namespace Punto_de_ventas
             }
         }
 
-        private void textBox_PagoscCliente_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_PagoscCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
             evento.NumberDecimalKreyPress(textBox_PagoscCliente, e);
         }
 
         private void Button_GuardarCliente_Click(object sender, EventArgs e)
         {
-
+            if (radioIngresarCliente.Checked)
+            {
+                GuardarCliente();
+            }
+            
         }
 
+        private void GuardarCliente()
+        {
+            if (textBox_Id.Text == "")
+            {
+                label_Id.ForeColor = Color.Red;
+                textBox_Id.Focus();
+            }
+            else
+            {
+                if (textBox_Nombre.Text == "")
+                {
+                    label_Nombre.ForeColor = Color.Red;
+                    textBox_Nombre.Focus();
+                }
+                else
+                {
+                    if (textBox_Apellido.Text == "")
+                    {
+                        label_Apellido.ForeColor = Color.Red;
+                        textBox_Apellido.Focus();
+                    }
+                    else
+                    {
+                        if (textBox_Direccion.Text == "")
+                        {
+                            label_Direccion.ForeColor = Color.Red;
+                            textBox_Direccion.Focus();
+                        }
+                        else
+                        {
+                            if (textBox_Telefono.Text == "")
+                            {
+                                label_Telefono.ForeColor = Color.Red;
+                                textBox_Telefono.Focus();
+                            }
+                            else
+                            {
+                                if (accion == "insert")
+                                {
+                                    cliente.InsertCliente(textBox_Id.Text, textBox_Nombre.Text, textBox_Apellido.Text,
+                                        textBox_Direccion.Text, textBox_Telefono.Text);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         #endregion
 
