@@ -1,22 +1,21 @@
-﻿using Punto_de_ventas.Connection;
-using Punto_de_ventas.ModelClass;
+﻿using Punto_de_ventas.ModelClass;
+using Punto_de_ventas.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Punto_de_ventas
 {
     public partial class FrmPrincipal : Form
     {
-        private string accion = "insert", paginas = "4", deudaActual, pago, día, fecha;
+        private string accion = "insert", deudaActual, pago, día, fecha;
+        private int paginas = 4;
+        private int pageSize = 10;
+        private int maxReg, pageCount;
         TextBoxEvent evento = new TextBoxEvent();
         Cliente cliente = new Cliente();
+        List<Clientes> numCliente = new List<Clientes>();
 
         public FrmPrincipal()
         {
@@ -28,10 +27,30 @@ namespace Punto_de_ventas
             #endregion
         }
 
+        #region Paginador
+
+        private void CargarDatos()
+        {
+            switch (paginas)
+            {
+                case 1:
+                    numCliente = cliente.GetClientes();
+                    dataGridView_Cliente.DataSource = cliente.BuscarCliente("", 1, pageSize);
+                    dataGridView_Cliente.Columns[0].Visible = false;
+                    dataGridView_Cliente.Columns[1].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                    dataGridView_Cliente.Columns[3].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                    maxReg = numCliente.Count;
+                    break;
+            }
+            
+        }
+
+        #endregion
+
         #region Clientes
         private void BtnClientes_Click(object sender, EventArgs e)
         {
-            paginas = "1";
+            paginas = 1;
             accion = "insert";
             tabControl1.SelectedIndex = 1;
             CargarDatos();
@@ -71,11 +90,6 @@ namespace Punto_de_ventas
             textBox_Telefono.ReadOnly = true;
             textBox_PagoscCliente.ReadOnly = false;
         }        
-
-        private void CargarDatos()
-        {
-
-        }
 
         private void TextBox_Id_TextChanged(object sender, EventArgs e)
         {

@@ -45,6 +45,19 @@ namespace Punto_de_ventas.ModelClass
             }
         }
 
-        
+        public IEnumerable<Clientes> BuscarCliente(string campo, int numPagina, int regPorPagina)
+        {
+            IEnumerable<Clientes> query;
+            int inicio = (numPagina - 1) * regPorPagina;
+            if (campo == "") 
+            {
+                query = from c in Cliente select c; // Selecciona todos los datos de la tabla.
+            }
+            else
+            {
+                query = from c in Cliente where c.Id.StartsWith(campo) || c.Nombre.StartsWith(campo) select c;
+            }
+            return query.Skip(inicio).Take(regPorPagina).ToList();
+        }
     }
 }

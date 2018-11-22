@@ -1408,6 +1408,7 @@
             // 
             this.textBox_Telefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_Telefono.Location = new System.Drawing.Point(6, 300);
+            this.textBox_Telefono.MaxLength = 10;
             this.textBox_Telefono.Name = "textBox_Telefono";
             this.textBox_Telefono.Size = new System.Drawing.Size(198, 22);
             this.textBox_Telefono.TabIndex = 6;
@@ -1575,6 +1576,7 @@
             this.dataGridView_Cliente.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_Cliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridView_Cliente.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_Cliente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
