@@ -10,9 +10,8 @@ namespace Punto_de_ventas
     public partial class FrmPrincipal : Form
     {
         private string accion = "insert", deudaActual, pago, día, fecha;
-        private int paginas = 4;
-        private int pageSize = 10;
-        private int maxReg, pageCount;
+        private int paginas = 4, maxReg, pageCount, pageSize = 10, numeroPagina = 1;
+
         TextBoxEvent evento = new TextBoxEvent();
         Cliente cliente = new Cliente();
         List<Clientes> numCliente = new List<Clientes>();
@@ -35,14 +34,19 @@ namespace Punto_de_ventas
             {
                 case 1:
                     numCliente = cliente.GetClientes();
-                    dataGridView_Cliente.DataSource = cliente.BuscarCliente("", 1, pageSize);
-                    dataGridView_Cliente.Columns[0].Visible = false;
-                    dataGridView_Cliente.Columns[1].DefaultCellStyle.BackColor = Color.WhiteSmoke;
-                    dataGridView_Cliente.Columns[3].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+                    cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);                    
                     maxReg = numCliente.Count;
                     break;
             }
-            
+
+            pageCount = (maxReg / pageSize);
+
+            if ((maxReg % pageSize) > 0)
+            {
+                pageCount += 1;
+            }
+            label_PaginasCliente.Text = $"Página 1 de {pageCount.ToString()}";
+
         }
 
         #endregion
@@ -157,7 +161,6 @@ namespace Punto_de_ventas
             }
         }
 
-
         private void TextBox_Telefono_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Telefono.Text == "")
@@ -169,6 +172,44 @@ namespace Punto_de_ventas
                 label_Telefono.Text = "Teléfono";
                 label_Telefono.ForeColor = Color.Green;
             }
+        }
+
+        private void Button_PrimeroClientes_Click(object sender, EventArgs e)
+        {
+            numeroPagina = 1;
+            label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+            cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);
+        }
+
+        private void Button_AnteriorClientes_Click(object sender, EventArgs e)
+        {
+            if (numeroPagina > 1)
+            {
+                numeroPagina -= 1;
+                label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+                cliente.BuscarCliente(dataGridView_Cliente, "", numeroPagina, pageSize);
+            }
+        }
+
+        private void Button_SiguienteClientes_Click(object sender, EventArgs e)
+        {
+            if (numeroPagina < pageCount)
+            {
+                numeroPagina += 1;
+                label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+                cliente.BuscarCliente(dataGridView_Cliente, "", numeroPagina, pageSize);
+            }
+        }
+
+        private void Button_UltimoClientes_Click(object sender, EventArgs e)
+        {
+            numeroPagina = pageCount;
+            if (numeroPagina == 0)
+            {
+                numeroPagina = 1;
+            }
+            label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+            cliente.BuscarCliente(dataGridView_Cliente, "", pageCount, pageSize);
         }
 
         private void TextBox_Telefono_KeyPress(object sender, KeyPressEventArgs e)
@@ -200,7 +241,6 @@ namespace Punto_de_ventas
             {
                 GuardarCliente();
             }
-            
         }
 
         private void GuardarCliente()

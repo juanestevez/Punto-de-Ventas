@@ -2,7 +2,9 @@
 using Punto_de_ventas.Connection;
 using Punto_de_ventas.Models;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Punto_de_ventas.ModelClass
 {
@@ -45,7 +47,14 @@ namespace Punto_de_ventas.ModelClass
             }
         }
 
-        public IEnumerable<Clientes> BuscarCliente(string campo, int numPagina, int regPorPagina)
+        /// <summary>
+        /// Hace una consulta a la tabla clientes de la base de datos.
+        /// </summary>
+        /// <param name="grid">DataGridView para mostrar los datos.</param>
+        /// <param name="campo">Término a buscar. Un string vacío mostrará toda la tabla.</param>
+        /// <param name="numPagina">Número de página a mostrar.</param>
+        /// <param name="regPorPagina">Número de registros a mostrar por cada página</param>
+        public void BuscarCliente(DataGridView grid, string campo, int numPagina, int regPorPagina)
         {
             IEnumerable<Clientes> query;
             int inicio = (numPagina - 1) * regPorPagina;
@@ -57,7 +66,11 @@ namespace Punto_de_ventas.ModelClass
             {
                 query = from c in Cliente where c.Id.StartsWith(campo) || c.Nombre.StartsWith(campo) select c;
             }
-            return query.Skip(inicio).Take(regPorPagina).ToList();
+            grid.DataSource = query.Skip(inicio).Take(regPorPagina).ToList();
+            grid.Columns[0].Visible = false;
+            grid.Columns[1].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+            grid.Columns[3].DefaultCellStyle.BackColor = Color.WhiteSmoke;
+            grid.Columns[5].DefaultCellStyle.BackColor = Color.WhiteSmoke;
         }
     }
 }
