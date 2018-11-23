@@ -24,6 +24,7 @@ namespace Punto_de_ventas
             #region Clientes
             radioIngresarCliente.Checked = true;
             radioIngresarCliente.ForeColor = Color.DarkCyan;
+            cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);
             cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
             #endregion
         }
@@ -332,8 +333,14 @@ namespace Punto_de_ventas
             label_PagoCliente.Text = "Pagos de deudas";
             radioIngresarCliente.Checked = true;
             radioIngresarCliente.ForeColor = Color.DarkCyan;
-            accion = "insert";
+            accion = "insert";            
             idCliente = 0;
+            label_NombreRB.Text = "";
+            label_ApellidoRB.Text = "";
+            label_ClienteSA.Text = "$0.00";
+            label_ClienteUP.Text = "$0.00";
+            label_FechaPG.Text = "";
+            DataGridViewCliente();
         }
 
         private void DataGridViewCliente()

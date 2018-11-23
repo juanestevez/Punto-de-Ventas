@@ -1,6 +1,7 @@
 ﻿using LinqToDB;
 using Punto_de_ventas.Connection;
 using Punto_de_ventas.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Punto_de_ventas.ModelClass
 {
     public class Cliente : Conexion
     {
+        List<ReportesClientes> reporte;
+
         public List<Clientes> GetClientes()
         {
             IQueryable<Clientes> query = from c in Cliente select c;
@@ -90,6 +93,24 @@ namespace Punto_de_ventas.ModelClass
                         };
             grid.DataSource = query.ToList();
             grid.Columns[0].Visible = false;
+        }
+
+        public void ActualizarCliente(string id, string nombre, string apellido, string direccion, 
+            string telefono, int idCliente)
+        {
+            Cliente.Where(c => c.IdCliente == idCliente)
+                .Set(c => c.Id, id)
+                .Set(c => c.Nombre, nombre)
+                .Set(c => c.Apellido, apellido)
+                .Set(c => c.Direccion, direccion)
+                .Set(c => c.Telefono, telefono)
+                .Update();
+            reporte = GetReporte(idCliente);
+        }
+
+        public List<ReportesClientes> GetReporte(int idCliente)
+        {
+            return Reportes_Clientes.Where(r => r.IdCliente == idCliente).ToList(); // Lambda
         }
     }
 }

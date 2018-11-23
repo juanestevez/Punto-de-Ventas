@@ -1,3 +1,3 @@
-#Punto de ventas
+# Punto de ventas
 
-Sistema de aprendizaje C# y MySQL/MariaDBa través del curso en Udemy.
+Sistema de aprendizaje C# y MySQL/MariaDB a travÃ©s del curso en Udemy.
