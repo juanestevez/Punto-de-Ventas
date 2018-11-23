@@ -72,5 +72,24 @@ namespace Punto_de_ventas.ModelClass
             grid.Columns[3].DefaultCellStyle.BackColor = Color.WhiteSmoke;
             grid.Columns[5].DefaultCellStyle.BackColor = Color.WhiteSmoke;
         }
+
+        public void GetReporteCliente(DataGridView grid, int idCliente)
+        {
+            var query = from c in Cliente
+                        join r in Reportes_Clientes on c.IdCliente equals r.IdCliente
+                        where c.IdCliente == idCliente
+                        select new
+                        {
+                            r.IdRegistro,
+                            c.Nombre,
+                            c.Apellido,
+                            r.SaldoActual,
+                            r.FechaActual,
+                            r.UltimoPago,
+                            r.FechaPago
+                        };
+            grid.DataSource = query.ToList();
+            grid.Columns[0].Visible = false;
+        }
     }
 }

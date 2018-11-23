@@ -10,7 +10,8 @@ namespace Punto_de_ventas
     public partial class FrmPrincipal : Form
     {
         private string accion = "insert", deudaActual, pago, día, fecha;
-        private int paginas = 4, maxReg, pageCount, pageSize = 10, numeroPagina = 1;
+        private int paginas = 4, maxReg, pageCount, pageSize = 10, numeroPagina = 1, idCliente = 0;
+        private int idRegistro = 0;
 
         TextBoxEvent evento = new TextBoxEvent();
         Cliente cliente = new Cliente();
@@ -23,6 +24,7 @@ namespace Punto_de_ventas
             #region Clientes
             radioIngresarCliente.Checked = true;
             radioIngresarCliente.ForeColor = Color.DarkCyan;
+            cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
             #endregion
         }
 
@@ -181,6 +183,27 @@ namespace Punto_de_ventas
             cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);
         }
 
+        private void Button_Cancelar_Click(object sender, EventArgs e)
+        {
+            RestablecerCliente();
+        }
+
+        private void DataGridView_Cliente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
+            {
+                DataGridViewCliente();
+            }
+        }
+
+        private void DataGridView_Cliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
+            {
+                DataGridViewCliente();
+            }
+        }
+
         private void Button_AnteriorClientes_Click(object sender, EventArgs e)
         {
             if (numeroPagina > 1)
@@ -204,10 +227,6 @@ namespace Punto_de_ventas
         private void Button_UltimoClientes_Click(object sender, EventArgs e)
         {
             numeroPagina = pageCount;
-            if (numeroPagina == 0)
-            {
-                numeroPagina = 1;
-            }
             label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
             cliente.BuscarCliente(dataGridView_Cliente, "", pageCount, pageSize);
         }
@@ -285,6 +304,7 @@ namespace Punto_de_ventas
                                     cliente.InsertCliente(textBox_Id.Text, textBox_Nombre.Text, textBox_Apellido.Text,
                                         textBox_Direccion.Text, textBox_Telefono.Text);
                                 }
+                                RestablecerCliente();
                             }
                         }
                     }
@@ -292,6 +312,48 @@ namespace Punto_de_ventas
             }
         }
 
+        private void RestablecerCliente()
+        {
+            CargarDatos();
+            textBox_Id.Text = "";
+            textBox_Nombre.Text = "";
+            textBox_Apellido.Text = "";
+            textBox_Direccion.Text = "";
+            textBox_Telefono.Text = "";
+            textBox_PagoscCliente.Text = "";
+            textBox_Id.Focus();
+            textBox_BuscarCliente.Text = "";
+            label_Id.ForeColor = Color.LightSlateGray;
+            label_Nombre.ForeColor = Color.LightSlateGray;
+            label_Apellido.ForeColor = Color.LightSlateGray;
+            label_Direccion.ForeColor = Color.LightSlateGray;
+            label_Telefono.ForeColor = Color.LightSlateGray;
+            label_PagoCliente.ForeColor = Color.LightSlateGray;
+            label_PagoCliente.Text = "Pagos de deudas";
+            radioIngresarCliente.Checked = true;
+            radioIngresarCliente.ForeColor = Color.DarkCyan;
+            accion = "insert";
+            idCliente = 0;
+        }
+
+        private void DataGridViewCliente()
+        {
+            accion = "update";
+            idCliente = Convert.ToInt16(dataGridView_Cliente.CurrentRow.Cells[0].Value);
+            textBox_Id.Text = Convert.ToString(dataGridView_Cliente.CurrentRow.Cells[1].Value);
+            textBox_Nombre.Text = Convert.ToString(dataGridView_Cliente.CurrentRow.Cells[2].Value);
+            textBox_Apellido.Text = Convert.ToString(dataGridView_Cliente.CurrentRow.Cells[3].Value);
+            textBox_Direccion.Text = Convert.ToString(dataGridView_Cliente.CurrentRow.Cells[4].Value);
+            textBox_Telefono.Text = Convert.ToString(dataGridView_Cliente.CurrentRow.Cells[5].Value);
+            cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
+
+            idRegistro = Convert.ToInt16(dataGridView_ClienteReporte.CurrentRow.Cells[0].Value);
+            label_NombreRB.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[1].Value);
+            label_ApellidoRB.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[2].Value);
+            label_ClienteSA.Text = $"${Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[3].Value)}";
+            label_FechaPG.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[4].Value);
+            label_ClienteUP.Text = $"${Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[5].Value)}";
+        }
         #endregion
 
 
