@@ -1035,18 +1035,16 @@
             this.label_ClienteUP.AutoSize = true;
             this.label_ClienteUP.Location = new System.Drawing.Point(82, 109);
             this.label_ClienteUP.Name = "label_ClienteUP";
-            this.label_ClienteUP.Size = new System.Drawing.Size(13, 13);
+            this.label_ClienteUP.Size = new System.Drawing.Size(0, 13);
             this.label_ClienteUP.TabIndex = 9;
-            this.label_ClienteUP.Text = "$";
             // 
             // label_ClienteSA
             // 
             this.label_ClienteSA.AutoSize = true;
             this.label_ClienteSA.Location = new System.Drawing.Point(82, 85);
             this.label_ClienteSA.Name = "label_ClienteSA";
-            this.label_ClienteSA.Size = new System.Drawing.Size(13, 13);
+            this.label_ClienteSA.Size = new System.Drawing.Size(0, 13);
             this.label_ClienteSA.TabIndex = 8;
-            this.label_ClienteSA.Text = "$";
             // 
             // label_ApellidoRB
             // 

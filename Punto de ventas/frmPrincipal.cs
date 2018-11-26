@@ -257,15 +257,31 @@ namespace Punto_de_ventas
 
         private void TextBox_PagoscCliente_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_PagoscCliente.Text == "")
+            if (dataGridView_ClienteReporte.CurrentRow == null)
             {
-                textBox_PagoscCliente.ForeColor = Color.LightSlateGray;
+                label_PagoCliente.Text = "Selecciona el cliente";
+                label_PagoCliente.ForeColor = Color.Red;
+                textBox_PagoscCliente.Text = "";
             }
             else
             {
-                textBox_PagoscCliente.Text = "Pago de deudas";
-                textBox_PagoscCliente.ForeColor = Color.Green;
-            }
+                if (textBox_PagoscCliente.Text != "")
+                {
+                    String deuda1;
+                    Decimal deuda2, deuda3, deudaTotal;
+                    label_PagoCliente.Text = "Pagos de deuda";
+                    textBox_PagoscCliente.ForeColor = Color.LightSlateGray;
+                    deuda1 = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[3].Value);
+                    deuda1 = deuda1.Replace("$", "");
+                    deuda2 = Convert.ToDecimal(deuda1);
+
+                    deuda3 = Convert.ToDecimal(textBox_PagoscCliente.Text);
+
+                    deudaTotal = deuda2 - deuda3;
+                    deudaActual = String.Format("{0:#,###,###,##0.00####}", deudaTotal);
+                    pago = String.Format("{0:#,###,###,##0.00####}", textBox_PagoscCliente.Text);
+                }
+            }            
         }
 
         private void TextBox_PagoscCliente_KeyPress(object sender, KeyPressEventArgs e)
@@ -278,6 +294,25 @@ namespace Punto_de_ventas
             if (radioIngresarCliente.Checked)
             {
                 GuardarCliente();
+            }
+            else
+            {
+                GuardarPago();
+            }
+        }
+
+        private void GuardarPago()
+        {
+            if (textBox_PagoscCliente.Text == "")
+            {
+                label_PagoCliente.Text = "Ingresee el pago";
+                label_PagoCliente.ForeColor = Color.Red;
+                textBox_PagoscCliente.Focus();
+            }
+            else
+            {
+                cliente.ActualizarReporte(deudaActual, pago, idCliente);
+                RestablecerCliente();
             }
         }
 
@@ -361,8 +396,8 @@ namespace Punto_de_ventas
             radioIngresarCliente.ForeColor = Color.DarkCyan;
             label_NombreRB.Text = "";
             label_ApellidoRB.Text = "";
-            label_ClienteSA.Text = "$0.00";
-            label_ClienteUP.Text = "$0.00";
+            label_ClienteSA.Text = "0.00";
+            label_ClienteUP.Text = "0.00";
             label_FechaPG.Text = "";
             cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
         }
@@ -381,9 +416,9 @@ namespace Punto_de_ventas
             idRegistro = Convert.ToInt16(dataGridView_ClienteReporte.CurrentRow.Cells[0].Value);
             label_NombreRB.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[1].Value);
             label_ApellidoRB.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[2].Value);
-            label_ClienteSA.Text = $"${Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[3].Value)}";
+            label_ClienteSA.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[3].Value);
             label_FechaPG.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[4].Value);
-            label_ClienteUP.Text = $"${Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[5].Value)}";
+            label_ClienteUP.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[5].Value);
         }
         #endregion
 

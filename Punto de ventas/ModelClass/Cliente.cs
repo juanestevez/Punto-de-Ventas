@@ -41,10 +41,10 @@ namespace Punto_de_ventas.ModelClass
                 db.Insert(new ReportesClientes()
                 {
                     IdCliente = idCliente,
-                    SaldoActual = "0.0",
+                    SaldoActual = "$ 0.0",
                     FechaActual = "Sin fecha",
-                    UltimoPago = "0.0",
-                    FechaPago = "Sin fecha",
+                    UltimoPago = "$ 0.0",
+                    FechaPago = "No hay pagos",
                     Id = id
                 });
             }
@@ -125,6 +125,20 @@ namespace Punto_de_ventas.ModelClass
         {
             Reportes_Clientes.Where(r => r.IdRegistro == idRegistro).Delete();
             Cliente.Where(c => c.IdCliente == idCLiente).Delete();
+        }
+
+        public void ActualizarReporte(string deudaActual, string ultimoPago, int idCliente)
+        {
+            string fecha = System.DateTime.Now.ToString("dd/MM/yyyy"); // Ej. 26/11/2018
+            reporte = GetReporte(idCliente);
+            Reportes_Clientes.Where(r => r.IdRegistro == reporte[0].IdRegistro)
+                .Set(r => r.IdCliente, reporte[0].IdCliente)
+                .Set(r => r.SaldoActual, "$" + deudaActual)
+                .Set(r => r.FechaActual, fecha)
+                .Set(r => r.UltimoPago, "$" + ultimoPago)
+                .Set(r => r.FechaPago, fecha)
+                .Set(r => r.Id, reporte[0].Id)
+                .Update();
         }
     }
 }
