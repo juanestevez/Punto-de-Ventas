@@ -67,7 +67,7 @@ namespace Punto_de_ventas.ModelClass
             }
             else
             {
-                query = from c in Cliente where c.Id.StartsWith(campo) || c.Nombre.StartsWith(campo) select c;
+                query = from c in Cliente where c.Id.StartsWith(campo) || c.Nombre.StartsWith(campo) || c.Apellido.StartsWith(campo) select c;
             }
             grid.DataSource = query.Skip(inicio).Take(regPorPagina).ToList();
             grid.Columns[0].Visible = false;

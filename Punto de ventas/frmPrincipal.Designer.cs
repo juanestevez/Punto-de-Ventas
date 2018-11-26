@@ -1217,6 +1217,7 @@
             this.textBox_BuscarCliente.Name = "textBox_BuscarCliente";
             this.textBox_BuscarCliente.Size = new System.Drawing.Size(198, 25);
             this.textBox_BuscarCliente.TabIndex = 11;
+            this.textBox_BuscarCliente.TextChanged += new System.EventHandler(this.TextBox_BuscarCliente_TextChanged);
             // 
             // label6
             // 

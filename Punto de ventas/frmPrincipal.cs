@@ -228,6 +228,11 @@ namespace Punto_de_ventas
             }
         }
 
+        private void TextBox_BuscarCliente_TextChanged(object sender, EventArgs e)
+        {
+            cliente.BuscarCliente(dataGridView_Cliente, textBox_BuscarCliente.Text, 1, pageSize);
+        }
+
         private void Button_SiguienteClientes_Click(object sender, EventArgs e)
         {
             if (numeroPagina < pageCount)
