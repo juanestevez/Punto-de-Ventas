@@ -106,6 +106,14 @@ namespace Punto_de_ventas.ModelClass
                 .Set(c => c.Telefono, telefono)
                 .Update();
             reporte = GetReporte(idCliente);
+            Reportes_Clientes.Where(r => r.IdRegistro == reporte[0].IdRegistro)
+                .Set(r => r.IdCliente, reporte[0].IdCliente)
+                .Set(r => r.SaldoActual, reporte[0].SaldoActual)
+                .Set(r => r.FechaActual, reporte[0].FechaActual)
+                .Set(r => r.UltimoPago, reporte[0].UltimoPago)
+                .Set(r => r.FechaPago, reporte[0].FechaPago)
+                .Set(r => r.Id, id)
+                .Update();
         }
 
         public List<ReportesClientes> GetReporte(int idCliente)

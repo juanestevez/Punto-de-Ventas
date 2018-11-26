@@ -305,6 +305,11 @@ namespace Punto_de_ventas
                                     cliente.InsertCliente(textBox_Id.Text, textBox_Nombre.Text, textBox_Apellido.Text,
                                         textBox_Direccion.Text, textBox_Telefono.Text);
                                 }
+                                else if (accion == "update")
+                                {
+                                    cliente.ActualizarCliente(textBox_Id.Text, textBox_Nombre.Text, textBox_Apellido.Text,
+                                        textBox_Direccion.Text, textBox_Telefono.Text, idCliente);
+                                }  
                                 RestablecerCliente();
                             }
                         }
@@ -315,6 +320,9 @@ namespace Punto_de_ventas
 
         private void RestablecerCliente()
         {
+            accion = "insert";
+            idCliente = 0;
+            idRegistro = 0;
             CargarDatos();
             textBox_Id.Text = "";
             textBox_Nombre.Text = "";
@@ -333,14 +341,12 @@ namespace Punto_de_ventas
             label_PagoCliente.Text = "Pagos de deudas";
             radioIngresarCliente.Checked = true;
             radioIngresarCliente.ForeColor = Color.DarkCyan;
-            accion = "insert";            
-            idCliente = 0;
             label_NombreRB.Text = "";
             label_ApellidoRB.Text = "";
             label_ClienteSA.Text = "$0.00";
             label_ClienteUP.Text = "$0.00";
             label_FechaPG.Text = "";
-            DataGridViewCliente();
+            cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
         }
 
         private void DataGridViewCliente()
