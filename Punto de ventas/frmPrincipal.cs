@@ -215,6 +215,19 @@ namespace Punto_de_ventas
             }
         }
 
+        private void Button_EliminarClientes_Click(object sender, EventArgs e)
+        {
+            if (idCliente > 0) // ¿Hay un registro seleccionado?
+            {
+                if (MessageBox.Show("Se eliminará el registro, esta acción no se puede deshacer. ¿Desea continuar?", 
+                    "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    cliente.EliminarCliente(idCliente, idRegistro);
+                    RestablecerCliente();
+                }
+            }
+        }
+
         private void Button_SiguienteClientes_Click(object sender, EventArgs e)
         {
             if (numeroPagina < pageCount)

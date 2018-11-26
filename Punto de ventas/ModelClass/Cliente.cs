@@ -120,5 +120,11 @@ namespace Punto_de_ventas.ModelClass
         {
             return Reportes_Clientes.Where(r => r.IdCliente == idCliente).ToList(); // Lambda
         }
+
+        public void EliminarCliente(int idCLiente, int idRegistro)
+        {
+            Reportes_Clientes.Where(r => r.IdRegistro == idRegistro).Delete();
+            Cliente.Where(c => c.IdCliente == idCLiente).Delete();
+        }
     }
 }
