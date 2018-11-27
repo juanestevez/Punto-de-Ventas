@@ -101,7 +101,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox_Recibo = new System.Windows.Forms.GroupBox();
+            this.groupBox_ReciboCliente = new System.Windows.Forms.GroupBox();
             this.label_FechaPG = new System.Windows.Forms.Label();
             this.label_ClienteUP = new System.Windows.Forms.Label();
             this.label_ClienteSA = new System.Windows.Forms.Label();
@@ -287,6 +287,7 @@
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox_ReciboVenta.SuspendLayout();
@@ -297,7 +298,7 @@
             this.groupBox18.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox_Recibo.SuspendLayout();
+            this.groupBox_ReciboCliente.SuspendLayout();
             this.groupBox_ClienteReporte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ClienteReporte)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -989,7 +990,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox_Recibo);
+            this.tabPage2.Controls.Add(this.groupBox_ReciboCliente);
             this.tabPage2.Controls.Add(this.groupBox_ClienteReporte);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
@@ -1002,25 +1003,25 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox_Recibo
+            // groupBox_ReciboCliente
             // 
-            this.groupBox_Recibo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Recibo.Controls.Add(this.label_FechaPG);
-            this.groupBox_Recibo.Controls.Add(this.label_ClienteUP);
-            this.groupBox_Recibo.Controls.Add(this.label_ClienteSA);
-            this.groupBox_Recibo.Controls.Add(this.label_ApellidoRB);
-            this.groupBox_Recibo.Controls.Add(this.label_NombreRB);
-            this.groupBox_Recibo.Controls.Add(this.label12);
-            this.groupBox_Recibo.Controls.Add(this.label11);
-            this.groupBox_Recibo.Controls.Add(this.label10);
-            this.groupBox_Recibo.Controls.Add(this.label9);
-            this.groupBox_Recibo.Controls.Add(this.label8);
-            this.groupBox_Recibo.Controls.Add(this.label7);
-            this.groupBox_Recibo.Location = new System.Drawing.Point(814, 370);
-            this.groupBox_Recibo.Name = "groupBox_Recibo";
-            this.groupBox_Recibo.Size = new System.Drawing.Size(217, 155);
-            this.groupBox_Recibo.TabIndex = 4;
-            this.groupBox_Recibo.TabStop = false;
+            this.groupBox_ReciboCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_ReciboCliente.Controls.Add(this.label_FechaPG);
+            this.groupBox_ReciboCliente.Controls.Add(this.label_ClienteUP);
+            this.groupBox_ReciboCliente.Controls.Add(this.label_ClienteSA);
+            this.groupBox_ReciboCliente.Controls.Add(this.label_ApellidoRB);
+            this.groupBox_ReciboCliente.Controls.Add(this.label_NombreRB);
+            this.groupBox_ReciboCliente.Controls.Add(this.label12);
+            this.groupBox_ReciboCliente.Controls.Add(this.label11);
+            this.groupBox_ReciboCliente.Controls.Add(this.label10);
+            this.groupBox_ReciboCliente.Controls.Add(this.label9);
+            this.groupBox_ReciboCliente.Controls.Add(this.label8);
+            this.groupBox_ReciboCliente.Controls.Add(this.label7);
+            this.groupBox_ReciboCliente.Location = new System.Drawing.Point(814, 370);
+            this.groupBox_ReciboCliente.Name = "groupBox_ReciboCliente";
+            this.groupBox_ReciboCliente.Size = new System.Drawing.Size(217, 155);
+            this.groupBox_ReciboCliente.TabIndex = 4;
+            this.groupBox_ReciboCliente.TabStop = false;
             // 
             // label_FechaPG
             // 
@@ -1506,6 +1507,7 @@
             this.button_ImprCliente.Text = "Imprimir";
             this.button_ImprCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button_ImprCliente.UseVisualStyleBackColor = true;
+            this.button_ImprCliente.Click += new System.EventHandler(this.button_ImprCliente_Click);
             // 
             // label_PaginasCliente
             // 
@@ -3349,6 +3351,10 @@
             this.pictureBox1.TabIndex = 27;
             this.pictureBox1.TabStop = false;
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3383,8 +3389,8 @@
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox_Recibo.ResumeLayout(false);
-            this.groupBox_Recibo.PerformLayout();
+            this.groupBox_ReciboCliente.ResumeLayout(false);
+            this.groupBox_ReciboCliente.PerformLayout();
             this.groupBox_ClienteReporte.ResumeLayout(false);
             this.groupBox_ClienteReporte.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ClienteReporte)).EndInit();
@@ -3511,7 +3517,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.GroupBox groupBox_Recibo;
+        private System.Windows.Forms.GroupBox groupBox_ReciboCliente;
         private System.Windows.Forms.Label label_FechaPG;
         private System.Windows.Forms.Label label_ClienteUP;
         private System.Windows.Forms.Label label_ClienteSA;
@@ -3697,6 +3703,7 @@
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }
 

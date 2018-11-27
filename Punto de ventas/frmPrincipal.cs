@@ -58,15 +58,15 @@ namespace Punto_de_ventas
         private void BtnClientes_Click(object sender, EventArgs e)
         {
             paginas = 1;
-            accion = "insert";
+            RestablecerCliente();
             tabControl1.SelectedIndex = 1;
-            CargarDatos();
             btnClientes.Enabled = false;
             btnVentas.Enabled = true;
             btnProductos.Enabled = true;
             btnCompras.Enabled = true;
             btnDepto.Enabled = true;
             btnCompras.Enabled = true;
+            CargarDatos();
         }
 
         private void RadioIngresarCliente_CheckedChanged(object sender, EventArgs e)
@@ -90,14 +90,15 @@ namespace Punto_de_ventas
             radioPagosDeudas.ForeColor = Color.DarkCyan;
             radioIngresarCliente.ForeColor = Color.Black;
 
-            textBox_Id.ReadOnly = false;
+            textBox_Id.ReadOnly = true;
             textBox_Nombre.ReadOnly = true;
             textBox_Apellido.ReadOnly = true;
             textBox_Direccion.ReadOnly = true;
             textBox_Telefono.ReadOnly = true;
             textBox_PagoscCliente.ReadOnly = false;
-        }        
+        }
 
+        #region Validacion de campos
         private void TextBox_Id_TextChanged(object sender, EventArgs e)
         {
             if (textBox_Id.Text == "")
@@ -177,32 +178,24 @@ namespace Punto_de_ventas
             }
         }
 
+        private void TextBox_Telefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            evento.NumberKeyPress(e);
+        }
+
+        private void TextBox_PagoscCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            evento.NumberDecimalKreyPress(textBox_PagoscCliente, e);
+        }
+
+        #endregion
+
+        #region Paginacion
         private void Button_PrimeroClientes_Click(object sender, EventArgs e)
         {
             numeroPagina = 1;
             label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
             cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);
-        }
-
-        private void Button_Cancelar_Click(object sender, EventArgs e)
-        {
-            RestablecerCliente();
-        }
-
-        private void DataGridView_Cliente_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
-            {
-                DataGridViewCliente();
-            }
-        }
-
-        private void DataGridView_Cliente_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
-            {
-                DataGridViewCliente();
-            }
         }
 
         private void Button_AnteriorClientes_Click(object sender, EventArgs e)
@@ -213,24 +206,6 @@ namespace Punto_de_ventas
                 label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
                 cliente.BuscarCliente(dataGridView_Cliente, "", numeroPagina, pageSize);
             }
-        }
-
-        private void Button_EliminarClientes_Click(object sender, EventArgs e)
-        {
-            if (idCliente > 0) // ¿Hay un registro seleccionado?
-            {
-                if (MessageBox.Show("Se eliminará el registro, esta acción no se puede deshacer. ¿Desea continuar?", 
-                    "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    cliente.EliminarCliente(idCliente, idRegistro);
-                    RestablecerCliente();
-                }
-            }
-        }
-
-        private void TextBox_BuscarCliente_TextChanged(object sender, EventArgs e)
-        {
-            cliente.BuscarCliente(dataGridView_Cliente, textBox_BuscarCliente.Text, 1, pageSize);
         }
 
         private void Button_SiguienteClientes_Click(object sender, EventArgs e)
@@ -249,10 +224,57 @@ namespace Punto_de_ventas
             label_PaginasCliente.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
             cliente.BuscarCliente(dataGridView_Cliente, "", pageCount, pageSize);
         }
+        #endregion
 
-        private void TextBox_Telefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void Button_GuardarCliente_Click(object sender, EventArgs e)
         {
-            evento.NumberKeyPress(e);
+            if (radioIngresarCliente.Checked)
+            {
+                GuardarCliente();
+            }
+            else
+            {
+                GuardarPago();
+            }
+        }
+
+        private void Button_Cancelar_Click(object sender, EventArgs e)
+        {
+            RestablecerCliente();
+        }
+
+        private void Button_EliminarClientes_Click(object sender, EventArgs e)
+        {
+            if (idCliente > 0) // ¿Hay un registro seleccionado?
+            {
+                if (MessageBox.Show("Se eliminará el registro, esta acción no se puede deshacer. ¿Desea continuar?",
+                    "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    cliente.EliminarCliente(idCliente, idRegistro);
+                    RestablecerCliente();
+                }
+            }
+        }
+
+        private void DataGridView_Cliente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
+            {
+                DataGridViewCliente();
+            }
+        }
+
+        private void DataGridView_Cliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
+            {
+                DataGridViewCliente();
+            }
+        }
+
+        private void TextBox_BuscarCliente_TextChanged(object sender, EventArgs e)
+        {
+            cliente.BuscarCliente(dataGridView_Cliente, textBox_BuscarCliente.Text, 1, pageSize);
         }
 
         private void TextBox_PagoscCliente_TextChanged(object sender, EventArgs e)
@@ -282,38 +304,6 @@ namespace Punto_de_ventas
                     pago = String.Format("{0:#,###,###,##0.00####}", textBox_PagoscCliente.Text);
                 }
             }            
-        }
-
-        private void TextBox_PagoscCliente_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            evento.NumberDecimalKreyPress(textBox_PagoscCliente, e);
-        }
-
-        private void Button_GuardarCliente_Click(object sender, EventArgs e)
-        {
-            if (radioIngresarCliente.Checked)
-            {
-                GuardarCliente();
-            }
-            else
-            {
-                GuardarPago();
-            }
-        }
-
-        private void GuardarPago()
-        {
-            if (textBox_PagoscCliente.Text == "")
-            {
-                label_PagoCliente.Text = "Ingresee el pago";
-                label_PagoCliente.ForeColor = Color.Red;
-                textBox_PagoscCliente.Focus();
-            }
-            else
-            {
-                cliente.ActualizarReporte(deudaActual, pago, idCliente);
-                RestablecerCliente();
-            }
         }
 
         private void GuardarCliente()
@@ -362,7 +352,7 @@ namespace Punto_de_ventas
                                 {
                                     cliente.ActualizarCliente(textBox_Id.Text, textBox_Nombre.Text, textBox_Apellido.Text,
                                         textBox_Direccion.Text, textBox_Telefono.Text, idCliente);
-                                }  
+                                }
                                 RestablecerCliente();
                             }
                         }
@@ -371,9 +361,25 @@ namespace Punto_de_ventas
             }
         }
 
+        private void GuardarPago()
+        {
+            if (textBox_PagoscCliente.Text == "")
+            {
+                label_PagoCliente.Text = "Ingresee el pago";
+                label_PagoCliente.ForeColor = Color.Red;
+                textBox_PagoscCliente.Focus();
+            }
+            else
+            {
+                cliente.ActualizarReporte(deudaActual, pago, idCliente);
+                RestablecerCliente();
+            }
+        }
+
         private void RestablecerCliente()
         {
             accion = "insert";
+            numeroPagina = 1;
             idCliente = 0;
             idRegistro = 0;
             CargarDatos();
@@ -419,6 +425,19 @@ namespace Punto_de_ventas
             label_ClienteSA.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[3].Value);
             label_FechaPG.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[4].Value);
             label_ClienteUP.Text = Convert.ToString(dataGridView_ClienteReporte.CurrentRow.Cells[5].Value);
+        }
+
+        private void button_ImprCliente_Click(object sender, EventArgs e)
+        {
+            printDocument1.Print();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Bitmap bm = new Bitmap(groupBox_ReciboCliente.Width, groupBox_ReciboCliente.Height);
+            groupBox_ReciboCliente.DrawToBitmap(bm, new Rectangle(0, 0, groupBox_ReciboCliente.Width, 
+                groupBox_ReciboCliente.Height));
+            e.Graphics.DrawImage(bm, 0, 0);
         }
         #endregion
 

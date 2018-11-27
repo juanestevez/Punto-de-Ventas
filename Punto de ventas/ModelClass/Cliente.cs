@@ -41,9 +41,9 @@ namespace Punto_de_ventas.ModelClass
                 db.Insert(new ReportesClientes()
                 {
                     IdCliente = idCliente,
-                    SaldoActual = "$ 0.0",
+                    SaldoActual = "$0.0",
                     FechaActual = "Sin fecha",
-                    UltimoPago = "$ 0.0",
+                    UltimoPago = "$0.0",
                     FechaPago = "No hay pagos",
                     Id = id
                 });
