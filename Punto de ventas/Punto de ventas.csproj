@@ -95,8 +95,10 @@
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelClass\Cliente.cs" />
+    <Compile Include="ModelClass\Proveedor.cs" />
     <Compile Include="ModelClass\TextBoxEvent.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\ReportesClientes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

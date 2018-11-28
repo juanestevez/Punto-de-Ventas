@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Punto_de_ventas.ModelClass
@@ -61,6 +58,18 @@ namespace Punto_de_ventas.ModelClass
             else
             {
                 e.Handled = true;
+            }
+        }
+
+        public bool ComprobarFormatoEmail(string email)
+        {
+            if (new EmailAddressAttribute().IsValid(email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     

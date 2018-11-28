@@ -20,12 +20,17 @@ namespace Punto_de_ventas
         public FrmPrincipal()
         {
             InitializeComponent();
-
+            
             #region Clientes
             radioIngresarCliente.Checked = true;
             radioIngresarCliente.ForeColor = Color.DarkCyan;
             cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);
             cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
+            #endregion
+
+            #region Proveedores
+            radioProveedorAgregar.Checked = true;
+            radioProveedorAgregar.ForeColor = Color.DarkCyan;
             #endregion
         }
 
@@ -62,10 +67,10 @@ namespace Punto_de_ventas
             tabControl1.SelectedIndex = 1;
             btnClientes.Enabled = false;
             btnVentas.Enabled = true;
+            btnProveedores.Enabled = true;
             btnProductos.Enabled = true;
             btnCompras.Enabled = true;
             btnDepto.Enabled = true;
-            btnCompras.Enabled = true;
             CargarDatos();
         }
 
@@ -447,6 +452,164 @@ namespace Punto_de_ventas
         #endregion
 
         #region Proveedores
+
+        private void BtnProveedores_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 2;
+            btnVentas.Enabled = true;
+            btnClientes.Enabled = true;
+            btnProveedores.Enabled = false;
+            btnProductos.Enabled = true;
+            btnDepto.Enabled = true;
+            btnCompras.Enabled = true;          
+            
+            ReestablecerProveedor();
+        }
+
+        private void RadioProveedorAgregar_CheckedChanged(object sender, EventArgs e)
+        {
+            radioProveedorAgregar.ForeColor = Color.DarkCyan;
+            radioProveedorPago.ForeColor = Color.Black;
+            txtProveedorNombre.ReadOnly = false;
+            txtProveedorTelefono.ReadOnly = false;
+            txtProveedorEmail.ReadOnly = false;
+            txtProveedorPago.ReadOnly = true;
+            lblProveedorPago.Text = "Pago de deudas";
+            txtProveedorPago.ForeColor = Color.DarkCyan;
+        }
+
+        private void btnProveedorGuardar_Click(object sender, EventArgs e)
+        {
+            GuardarProveedor();
+        }
+
+        private void btnProveedorEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProveedorCancelar_Click(object sender, EventArgs e)
+        {
+            ReestablecerProveedor();
+        }
+
+        private void RadioProveedorPago_CheckedChanged(object sender, EventArgs e)
+        {
+            radioProveedorPago.ForeColor = Color.DarkCyan;
+            radioProveedorAgregar.ForeColor = Color.Black;
+            txtProveedorNombre.ReadOnly = true;
+            txtProveedorTelefono.ReadOnly = true;
+            txtProveedorEmail.ReadOnly = true;
+            txtProveedorPago.ReadOnly = false;
+        }
+
+        private void TxtProveedorNombre_TextChanged(object sender, EventArgs e)
+        {
+            if (txtProveedorNombre.Text == "")
+            {
+                lblProveedorNombre.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                lblProveedorNombre.Text = "Proveedor";
+                lblProveedorNombre.ForeColor = Color.Green;
+            }
+        }
+
+        private void TxtProveedorTelefono_TextChanged(object sender, EventArgs e)
+        {
+            if (txtProveedorTelefono.Text == "")
+            {
+                lblProveedorTelefono.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                lblProveedorTelefono.Text = "Proveedor";
+                lblProveedorTelefono.ForeColor = Color.Green;
+            }
+        }
+
+        private void TxtProveedorTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            evento.NumberKeyPress(e);
+        }
+
+        private void TxtProveedorEmail_TextChanged(object sender, EventArgs e)
+        {
+            if (txtProveedorEmail.Text == "")
+            {
+                lblProveedorEmail.ForeColor = Color.LightSlateGray;
+            }
+            else
+            {
+                lblProveedorEmail.Text = "Email";
+                lblProveedorEmail.ForeColor = Color.Green;
+            }
+        }
+
+        private void TxtProveedorPago_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtProveedorPago_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            evento.NumberDecimalKreyPress(txtProveedorPago, e);
+        }
+
+        private void GuardarProveedor()
+        {
+            if (txtProveedorNombre.Text == "")
+            {
+                lblProveedorNombre.Text = "Ingrese el nombre del proveedor";
+                lblProveedorNombre.ForeColor = Color.Red;
+                txtProveedorNombre.Focus();
+            }
+            else
+            {
+                if (txtProveedorTelefono.Text == "")
+                {
+                    lblProveedorTelefono.Text = "Ingrese el número de teléfono";
+                    lblProveedorTelefono.ForeColor = Color.Red;
+                    txtProveedorTelefono.Focus();
+                }
+                else
+                {
+                    if (txtProveedorEmail.Text == "")
+                    {
+                        lblProveedorEmail.Text = "Ingrese el email";
+                        lblProveedorEmail.ForeColor = Color.Red;
+                        txtProveedorEmail.Focus();
+                    }
+                    else
+                    {
+                        switch (accion)
+                        {
+                            case "insert":
+                                if (evento.ComprobarFormatoEmail(txtProveedorEmail.Text))
+                                {
+
+                                }
+                                else
+                                {
+                                    lblProveedorEmail.Text = "El email no es válido";
+                                    lblProveedorEmail.ForeColor = Color.Red;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ReestablecerProveedor()
+        {
+            
+        }
+
+
         #endregion
 
     }
