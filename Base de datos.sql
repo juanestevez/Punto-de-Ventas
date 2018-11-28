@@ -12,11 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Volcando estructura de base de datos para puntoVentas
+-- Volcando estructura de base de datos para puntoventas
 CREATE DATABASE IF NOT EXISTS `puntoventas` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `puntoVentas`;
+USE `puntoventas`;
 
--- Volcando estructura para tabla puntoVentas.clientes
+-- Volcando estructura para tabla puntoventas.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (
   `IdCliente` int(11) NOT NULL AUTO_INCREMENT,
   `Id` varchar(50) DEFAULT NULL,
@@ -25,10 +25,20 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `Direccion` varchar(50) DEFAULT NULL,
   `Telefono` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`IdCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
--- Volcando estructura para tabla puntoVentas.reportesclientes
+-- Volcando estructura para tabla puntoventas.proveedores
+CREATE TABLE IF NOT EXISTS `proveedores` (
+  `IdProveedor` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) DEFAULT NULL,
+  `Telefono` varchar(50) DEFAULT NULL,
+  `Email` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`IdProveedor`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla puntoventas.reportesclientes
 CREATE TABLE IF NOT EXISTS `reportesclientes` (
   `idRegistro` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) DEFAULT NULL,
@@ -38,7 +48,19 @@ CREATE TABLE IF NOT EXISTS `reportesclientes` (
   `FechaPago` varchar(50) DEFAULT NULL,
   `Id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idRegistro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla puntoventas.reportesproveedores
+CREATE TABLE IF NOT EXISTS `reportesproveedores` (
+  `idRegistro` int(11) NOT NULL AUTO_INCREMENT,
+  `idProveedor` int(11) DEFAULT NULL,
+  `SaldoActual` varchar(50) DEFAULT NULL,
+  `FechaActual` varchar(50) DEFAULT NULL,
+  `UltimoPago` varchar(50) DEFAULT NULL,
+  `FechaPago` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idRegistro`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
