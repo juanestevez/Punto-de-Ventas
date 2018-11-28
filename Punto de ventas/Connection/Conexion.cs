@@ -8,8 +8,8 @@ namespace Punto_de_ventas.Connection
     {
         public Conexion() : base("dbVentas") { }
 
-        public ITable<Clientes> Cliente { get { return GetTable<Clientes>(); } }
+        public ITable<Clientes> TablaClientes { get { return GetTable<Clientes>(); } }
 
-        public ITable<ReportesClientes> Reportes_Clientes { get { return GetTable<ReportesClientes>(); } }
+        public ITable<ReportesClientes> TablaReportesClientes { get { return GetTable<ReportesClientes>(); } }
     }
 }

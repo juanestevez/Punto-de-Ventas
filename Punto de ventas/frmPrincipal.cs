@@ -264,6 +264,11 @@ namespace Punto_de_ventas
             }
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void DataGridView_Cliente_KeyUp(object sender, KeyEventArgs e)
         {
             if (dataGridView_Cliente.Rows.Count != 0) // El datagrid tiene datos
@@ -402,8 +407,8 @@ namespace Punto_de_ventas
             radioIngresarCliente.ForeColor = Color.DarkCyan;
             label_NombreRB.Text = "";
             label_ApellidoRB.Text = "";
-            label_ClienteSA.Text = "0.00";
-            label_ClienteUP.Text = "0.00";
+            label_ClienteSA.Text = "";
+            label_ClienteUP.Text = "";
             label_FechaPG.Text = "";
             cliente.GetReporteCliente(dataGridView_ClienteReporte, idCliente);
         }
@@ -441,6 +446,8 @@ namespace Punto_de_ventas
         }
         #endregion
 
+        #region Proveedores
+        #endregion
 
     }
 }

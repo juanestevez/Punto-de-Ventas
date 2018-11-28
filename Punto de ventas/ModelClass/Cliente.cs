@@ -15,7 +15,7 @@ namespace Punto_de_ventas.ModelClass
 
         public List<Clientes> GetClientes()
         {
-            IQueryable<Clientes> query = from c in Cliente select c;
+            IQueryable<Clientes> query = from c in TablaClientes select c;
             return query.ToList();
         }
 
@@ -63,11 +63,11 @@ namespace Punto_de_ventas.ModelClass
             int inicio = (numPagina - 1) * regPorPagina;
             if (campo == "") 
             {
-                query = from c in Cliente select c; // Selecciona todos los datos de la tabla.
+                query = from c in TablaClientes select c; // Selecciona todos los datos de la tabla.
             }
             else
             {
-                query = from c in Cliente where c.Id.StartsWith(campo) || c.Nombre.StartsWith(campo) || c.Apellido.StartsWith(campo) select c;
+                query = from c in TablaClientes where c.Id.StartsWith(campo) || c.Nombre.StartsWith(campo) || c.Apellido.StartsWith(campo) select c;
             }
             grid.DataSource = query.Skip(inicio).Take(regPorPagina).ToList();
             grid.Columns[0].Visible = false;
@@ -78,8 +78,8 @@ namespace Punto_de_ventas.ModelClass
 
         public void GetReporteCliente(DataGridView grid, int idCliente)
         {
-            var query = from c in Cliente
-                        join r in Reportes_Clientes on c.IdCliente equals r.IdCliente
+            var query = from c in TablaClientes
+                        join r in TablaReportesClientes on c.IdCliente equals r.IdCliente
                         where c.IdCliente == idCliente
                         select new
                         {
@@ -98,7 +98,7 @@ namespace Punto_de_ventas.ModelClass
         public void ActualizarCliente(string id, string nombre, string apellido, string direccion, 
             string telefono, int idCliente)
         {
-            Cliente.Where(c => c.IdCliente == idCliente)
+            TablaClientes.Where(c => c.IdCliente == idCliente)
                 .Set(c => c.Id, id)
                 .Set(c => c.Nombre, nombre)
                 .Set(c => c.Apellido, apellido)
@@ -106,7 +106,7 @@ namespace Punto_de_ventas.ModelClass
                 .Set(c => c.Telefono, telefono)
                 .Update();
             reporte = GetReporte(idCliente);
-            Reportes_Clientes.Where(r => r.IdRegistro == reporte[0].IdRegistro)
+            TablaReportesClientes.Where(r => r.IdRegistro == reporte[0].IdRegistro)
                 .Set(r => r.IdCliente, reporte[0].IdCliente)
                 .Set(r => r.SaldoActual, reporte[0].SaldoActual)
                 .Set(r => r.FechaActual, reporte[0].FechaActual)
@@ -118,20 +118,20 @@ namespace Punto_de_ventas.ModelClass
 
         public List<ReportesClientes> GetReporte(int idCliente)
         {
-            return Reportes_Clientes.Where(r => r.IdCliente == idCliente).ToList(); // Lambda
+            return TablaReportesClientes.Where(r => r.IdCliente == idCliente).ToList(); // Lambda
         }
 
         public void EliminarCliente(int idCLiente, int idRegistro)
         {
-            Reportes_Clientes.Where(r => r.IdRegistro == idRegistro).Delete();
-            Cliente.Where(c => c.IdCliente == idCLiente).Delete();
+            TablaReportesClientes.Where(r => r.IdRegistro == idRegistro).Delete();
+            TablaClientes.Where(c => c.IdCliente == idCLiente).Delete();
         }
 
         public void ActualizarReporte(string deudaActual, string ultimoPago, int idCliente)
         {
             string fecha = System.DateTime.Now.ToString("dd/MM/yyyy"); // Ej. 26/11/2018
             reporte = GetReporte(idCliente);
-            Reportes_Clientes.Where(r => r.IdRegistro == reporte[0].IdRegistro)
+            TablaReportesClientes.Where(r => r.IdRegistro == reporte[0].IdRegistro)
                 .Set(r => r.IdCliente, reporte[0].IdCliente)
                 .Set(r => r.SaldoActual, "$" + deudaActual)
                 .Set(r => r.FechaActual, fecha)
