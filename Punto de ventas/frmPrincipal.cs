@@ -12,10 +12,12 @@ namespace Punto_de_ventas
         private string accion = "insert", deudaActual, pago, día, fecha;
         private int paginas = 4, maxReg, pageCount, pageSize = 10, numeroPagina = 1, idCliente = 0;
         private int idRegistro = 0;
+        private int idProveedor;
 
         TextBoxEvent evento = new TextBoxEvent();
         Cliente cliente = new Cliente();
         List<Clientes> numCliente = new List<Clientes>();
+        Proveedor proveedor = new Proveedor();
 
         public FrmPrincipal()
         {
@@ -588,7 +590,28 @@ namespace Punto_de_ventas
                             case "insert":
                                 if (evento.ComprobarFormatoEmail(txtProveedorEmail.Text))
                                 {
+                                    var data = proveedor.AgregarProveedor(txtProveedorNombre.Text, txtProveedorTelefono.Text,
+                                        txtProveedorEmail.Text);
+                                    if (0 == data.Count)
+                                    {
+                                        ReestablecerProveedor();
+                                    }
+                                    else
+                                    {
+                                        if (data[0].Telefono == txtProveedorTelefono.Text)
+                                        {
+                                            lblProveedorTelefono.Text = "El teléfono ya está registrado";
+                                            lblProveedorTelefono.ForeColor = Color.Red;
+                                            txtProveedorTelefono.Focus();
+                                        }
+                                        if (data[0].Email == txtProveedorEmail.Text)
+                                        {
+                                            lblProveedorEmail.Text = "El email ya está registrado";
+                                            lblProveedorEmail.ForeColor = Color.Red;
+                                            txtProveedorEmail.Focus();
 
+                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -606,7 +629,17 @@ namespace Punto_de_ventas
 
         private void ReestablecerProveedor()
         {
-            
+            paginas = 2;
+            accion = "insert";
+            CargarDatos();
+            txtProveedorNombre.Text = "";
+            txtProveedorTelefono.Text = "";
+            txtProveedorEmail.Text = "";
+            txtProveedorNombre.Focus();
+            lblProveedorNombre.ForeColor = Color.LightSlateGray;
+            lblProveedorEmail.ForeColor = Color.LightSlateGray;
+            lblProveedorTelefono.ForeColor = Color.LightSlateGray;
+            idProveedor = 0;
         }
 
 

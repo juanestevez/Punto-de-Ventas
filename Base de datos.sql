@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 CREATE TABLE IF NOT EXISTS `proveedores` (
   `IdProveedor` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) DEFAULT NULL,
-  `Telefono` varchar(50) DEFAULT NULL,
-  `Email` varchar(10) DEFAULT NULL,
+  `Telefono` varchar(10) DEFAULT NULL,
+  `Email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IdProveedor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

@@ -100,6 +100,7 @@
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\ReportesClientes.cs" />
+    <Compile Include="Models\ReportesProveedores.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmPrincipal.resx">
