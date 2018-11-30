@@ -10,13 +10,14 @@ namespace Punto_de_ventas
     public partial class FrmPrincipal : Form
     {
         private string accion = "insert", deudaActual, pago, día, fecha;
-        private int paginas = 4, maxReg, pageCount, pageSize = 10, numeroPagina = 1, idCliente = 0;
+        private int vistaActual = 0, maxReg, pageCount, pageSize = 10, numeroPagina = 1, idCliente = 0;
         private int idRegistro = 0;
         private int idProveedor;
 
         TextBoxEvent evento = new TextBoxEvent();
         Cliente cliente = new Cliente();
         List<Clientes> numCliente = new List<Clientes>();
+        List<Proveedores> numProveedores = new List<Proveedores>();
         Proveedor proveedor = new Proveedor();
 
         public FrmPrincipal()
@@ -40,12 +41,17 @@ namespace Punto_de_ventas
 
         private void CargarDatos()
         {
-            switch (paginas)
+            switch (vistaActual)
             {
                 case 1:
                     numCliente = cliente.GetClientes();
                     cliente.BuscarCliente(dataGridView_Cliente, "", 1, pageSize);                    
                     maxReg = numCliente.Count;
+                    break;
+                case 2:
+                    numProveedores = proveedor.GetProveedores();
+                    proveedor.BuscarProveedor(gridProveedores, "", 1, pageSize);
+                    maxReg = numProveedores.Count;
                     break;
             }
 
@@ -55,8 +61,9 @@ namespace Punto_de_ventas
             {
                 pageCount += 1;
             }
-            label_PaginasCliente.Text = $"Página 1 de {pageCount.ToString()}";
-
+            string textoPaginas = $"Página 1 de {pageCount.ToString()}";
+            label_PaginasCliente.Text = textoPaginas;
+            lblProveedorPaginas.Text = textoPaginas;
         }
 
         #endregion
@@ -64,7 +71,7 @@ namespace Punto_de_ventas
         #region Clientes
         private void BtnClientes_Click(object sender, EventArgs e)
         {
-            paginas = 1;
+            vistaActual = 1;
             RestablecerCliente();
             tabControl1.SelectedIndex = 1;
             btnClientes.Enabled = false;
@@ -619,6 +626,9 @@ namespace Punto_de_ventas
                                     lblProveedorEmail.ForeColor = Color.Red;
                                 }
                                 break;
+                            case "update":
+
+                                break;
                             default:
                                 break;
                         }
@@ -629,7 +639,7 @@ namespace Punto_de_ventas
 
         private void ReestablecerProveedor()
         {
-            paginas = 2;
+            vistaActual = 2;
             accion = "insert";
             CargarDatos();
             txtProveedorNombre.Text = "";
@@ -642,6 +652,30 @@ namespace Punto_de_ventas
             idProveedor = 0;
         }
 
+        private void GridProveedores_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (gridProveedores.Rows.Count != 0)
+            {
+                DataGridViewProveedor();
+            }
+        }
+
+        private void GridProveedores_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (gridProveedores.Rows.Count != 0)
+            {
+                DataGridViewProveedor();
+            }
+        }
+
+        private void DataGridViewProveedor()
+        {
+            accion = "update";
+            idProveedor = Convert.ToInt16(gridProveedores.CurrentRow.Cells[0].Value);
+            txtProveedorNombre.Text = Convert.ToString(gridProveedores.CurrentRow.Cells[1].Value);
+            txtProveedorEmail.Text = Convert.ToString(gridProveedores.CurrentRow.Cells[2].Value);
+            txtProveedorTelefono.Text = Convert.ToString(gridProveedores.CurrentRow.Cells[3].Value);
+        }
 
         #endregion
 

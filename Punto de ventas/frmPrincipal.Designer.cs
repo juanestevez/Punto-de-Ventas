@@ -193,7 +193,7 @@
             this.label82 = new System.Windows.Forms.Label();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.btnProvedorImprimirRecibo = new System.Windows.Forms.Button();
-            this.label83 = new System.Windows.Forms.Label();
+            this.lblProveedorPaginas = new System.Windows.Forms.Label();
             this.btnProveedorUltimo = new System.Windows.Forms.Button();
             this.btnProveedorAnterior = new System.Windows.Forms.Button();
             this.btnProveedorSiguiente = new System.Windows.Forms.Button();
@@ -2155,7 +2155,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox31.Controls.Add(this.btnProvedorImprimirRecibo);
-            this.groupBox31.Controls.Add(this.label83);
+            this.groupBox31.Controls.Add(this.lblProveedorPaginas);
             this.groupBox31.Controls.Add(this.btnProveedorUltimo);
             this.groupBox31.Controls.Add(this.btnProveedorAnterior);
             this.groupBox31.Controls.Add(this.btnProveedorSiguiente);
@@ -2180,17 +2180,17 @@
             this.btnProvedorImprimirRecibo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProvedorImprimirRecibo.UseVisualStyleBackColor = false;
             // 
-            // label83
+            // lblProveedorPaginas
             // 
-            this.label83.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label83.Location = new System.Drawing.Point(314, 242);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(65, 16);
-            this.label83.TabIndex = 9;
-            this.label83.Text = "Paginas";
+            this.lblProveedorPaginas.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblProveedorPaginas.AutoSize = true;
+            this.lblProveedorPaginas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProveedorPaginas.ForeColor = System.Drawing.Color.DarkCyan;
+            this.lblProveedorPaginas.Location = new System.Drawing.Point(314, 242);
+            this.lblProveedorPaginas.Name = "lblProveedorPaginas";
+            this.lblProveedorPaginas.Size = new System.Drawing.Size(65, 16);
+            this.lblProveedorPaginas.TabIndex = 9;
+            this.lblProveedorPaginas.Text = "Paginas";
             // 
             // btnProveedorUltimo
             // 
@@ -2277,6 +2277,8 @@
             this.gridProveedores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridProveedores.Size = new System.Drawing.Size(704, 210);
             this.gridProveedores.TabIndex = 0;
+            this.gridProveedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridProveedores_CellClick);
+            this.gridProveedores.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GridProveedores_KeyUp);
             // 
             // tabPage4
             // 
@@ -4499,7 +4501,7 @@
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.GroupBox groupBox31;
         private System.Windows.Forms.Button btnProvedorImprimirRecibo;
-        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.Label lblProveedorPaginas;
         private System.Windows.Forms.Button btnProveedorUltimo;
         private System.Windows.Forms.Button btnProveedorAnterior;
         private System.Windows.Forms.Button btnProveedorSiguiente;
