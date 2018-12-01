@@ -65,7 +65,53 @@ namespace Punto_de_ventas.ModelClass
 
         public List<Proveedores> ActualizarProveedor(string nombre, string telefono, string email, int idProveedor)
         {
+            proveedores = TablaProveedores.Where(p => p.Telefono == telefono).ToList();
+            proveedores1 = TablaProveedores.Where(p => p.Email == email).ToList();
+            List<Proveedores> list = proveedores.Union(proveedores1).ToList();
+            if (2 == list.Count)
+            {
+                if (idProveedor == proveedores[0].IdProveedor && idProveedor == proveedores1[0].IdProveedor)
+                {
+                    ActualizarDb();
+                }
+            }
+            else
+            {
+                if (0 == list.Count) // El teléfono y el email no están registrados
+                {
+                    ActualizarDb();
+                }
+                else
+                {
+                    if (0 != proveedores.Count)
+                    {
+                        if (idProveedor == proveedores[0].IdProveedor)
+                        {
+                            ActualizarDb();
+                        }
+                    }
+                    if (0 != proveedores1.Count)
+                    {
+                        if (idProveedor == proveedores1[0].IdProveedor)
+                        {
+                            ActualizarDb();
+                        }
+                    }
+                }
+            }
 
+            void ActualizarDb()
+            {
+                TablaProveedores.Where(p => p.IdProveedor == idProveedor)
+                            .Set(p => p.Nombre, nombre)
+                            .Set(p => p.Telefono, telefono)
+                            .Set(p => p.Email, email)
+                            .Update();
+                list.Clear();
+            }
+            return list;
         }
+
+        
     }
 }

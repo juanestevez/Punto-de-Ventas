@@ -627,7 +627,27 @@ namespace Punto_de_ventas
                                 }
                                 break;
                             case "update":
-
+                                var data1 = proveedor.ActualizarProveedor(txtProveedorNombre.Text, txtProveedorTelefono.Text, 
+                                    txtProveedorEmail.Text, idProveedor);
+                                if (0 == data1.Count)
+                                {
+                                    ReestablecerProveedor();
+                                }
+                                else
+                                {
+                                    if (data1[0].IdProveedor != idProveedor)
+                                    {
+                                        lblProveedorTelefono.Text = "El teléfono ya está regisrado";
+                                        lblProveedorTelefono.ForeColor = Color.Red;
+                                        txtProveedorTelefono.Focus();
+                                    }
+                                    if (2 == data1.Count && data1[1].IdProveedor != idProveedor)
+                                    {
+                                        lblProveedorEmail.Text = "El email ya está regisrado";
+                                        lblProveedorEmail.ForeColor = Color.Red;
+                                        txtProveedorEmail.Focus();
+                                    }
+                                }
                                 break;
                             default:
                                 break;

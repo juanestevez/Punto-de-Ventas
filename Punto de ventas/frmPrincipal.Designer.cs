@@ -1975,7 +1975,7 @@
             this.txtProveedorPago.Location = new System.Drawing.Point(6, 325);
             this.txtProveedorPago.Name = "txtProveedorPago";
             this.txtProveedorPago.Size = new System.Drawing.Size(198, 22);
-            this.txtProveedorPago.TabIndex = 6;
+            this.txtProveedorPago.TabIndex = 4;
             this.txtProveedorPago.TextChanged += new System.EventHandler(this.TxtProveedorPago_TextChanged);
             this.txtProveedorPago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtProveedorPago_KeyPress);
             // 
@@ -2036,7 +2036,7 @@
             this.btnProveedorEliminar.Name = "btnProveedorEliminar";
             this.btnProveedorEliminar.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnProveedorEliminar.Size = new System.Drawing.Size(84, 39);
-            this.btnProveedorEliminar.TabIndex = 8;
+            this.btnProveedorEliminar.TabIndex = 6;
             this.btnProveedorEliminar.Text = "Eliminar";
             this.btnProveedorEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip.SetToolTip(this.btnProveedorEliminar, "Eliminar proveedor");
@@ -2054,7 +2054,7 @@
             this.btnProveedorCancelar.Name = "btnProveedorCancelar";
             this.btnProveedorCancelar.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.btnProveedorCancelar.Size = new System.Drawing.Size(84, 39);
-            this.btnProveedorCancelar.TabIndex = 9;
+            this.btnProveedorCancelar.TabIndex = 7;
             this.btnProveedorCancelar.Text = "Cancelar";
             this.btnProveedorCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip.SetToolTip(this.btnProveedorCancelar, "Cancelar");
@@ -2072,7 +2072,7 @@
             this.btnProveedorGuardar.Name = "btnProveedorGuardar";
             this.btnProveedorGuardar.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnProveedorGuardar.Size = new System.Drawing.Size(84, 39);
-            this.btnProveedorGuardar.TabIndex = 7;
+            this.btnProveedorGuardar.TabIndex = 5;
             this.btnProveedorGuardar.Text = "Guardar";
             this.btnProveedorGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip.SetToolTip(this.btnProveedorGuardar, "Guardar proveedor");
@@ -2086,7 +2086,7 @@
             this.txtProveedorTelefono.MaxLength = 10;
             this.txtProveedorTelefono.Name = "txtProveedorTelefono";
             this.txtProveedorTelefono.Size = new System.Drawing.Size(198, 22);
-            this.txtProveedorTelefono.TabIndex = 5;
+            this.txtProveedorTelefono.TabIndex = 2;
             this.txtProveedorTelefono.TextChanged += new System.EventHandler(this.TxtProveedorTelefono_TextChanged);
             this.txtProveedorTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtProveedorTelefono_KeyPress);
             // 
@@ -2106,7 +2106,7 @@
             this.txtProveedorEmail.MaxLength = 50;
             this.txtProveedorEmail.Name = "txtProveedorEmail";
             this.txtProveedorEmail.Size = new System.Drawing.Size(198, 22);
-            this.txtProveedorEmail.TabIndex = 4;
+            this.txtProveedorEmail.TabIndex = 3;
             this.txtProveedorEmail.TextChanged += new System.EventHandler(this.TxtProveedorEmail_TextChanged);
             // 
             // lblProveedorEmail
@@ -2126,7 +2126,7 @@
             this.txtProveedorNombre.Multiline = true;
             this.txtProveedorNombre.Name = "txtProveedorNombre";
             this.txtProveedorNombre.Size = new System.Drawing.Size(198, 21);
-            this.txtProveedorNombre.TabIndex = 2;
+            this.txtProveedorNombre.TabIndex = 1;
             this.txtProveedorNombre.TextChanged += new System.EventHandler(this.TxtProveedorNombre_TextChanged);
             // 
             // lblProveedorNombre
