@@ -63,8 +63,15 @@ namespace Punto_de_ventas
                 pageCount += 1;
             }
             string textoPaginas = $"Página 1 de {pageCount.ToString()}";
-            label_PaginasCliente.Text = textoPaginas;
-            lblProveedorPaginas.Text = textoPaginas;
+            switch (vistaActual)
+            {
+                case 1:
+                    label_PaginasCliente.Text = textoPaginas;
+                    break;
+                case 2:
+                    lblProveedorPaginas.Text = textoPaginas;
+                    break;
+            }            
         }
 
         #endregion
@@ -385,7 +392,7 @@ namespace Punto_de_ventas
         {
             if (textBox_PagoscCliente.Text == "")
             {
-                label_PagoCliente.Text = "Ingresee el pago";
+                label_PagoCliente.Text = "Ingrese el pago";
                 label_PagoCliente.ForeColor = Color.Red;
                 textBox_PagoscCliente.Focus();
             }
@@ -457,7 +464,7 @@ namespace Punto_de_ventas
             Bitmap bm = new Bitmap(groupBox_ReciboCliente.Width, groupBox_ReciboCliente.Height);
             groupBox_ReciboCliente.DrawToBitmap(bm, new Rectangle(0, 0, groupBox_ReciboCliente.Width, 
                 groupBox_ReciboCliente.Height));
-            e.Graphics.DrawImage(bm, 0, 0);
+            e.Graphics.DrawImage(bm, 50, 50);
         }
         #endregion
 
@@ -490,7 +497,14 @@ namespace Punto_de_ventas
 
         private void BtnProveedorGuardar_Click(object sender, EventArgs e)
         {
-            GuardarProveedor();
+            if (radioProveedorAgregar.Checked)
+            {
+                AgregarProveedor();
+            }
+            else
+            {
+                GuardarPagoProveedor();
+            }            
         }
 
         private void BtnProveedorEliminar_Click(object sender, EventArgs e)
@@ -500,7 +514,7 @@ namespace Punto_de_ventas
                 if (MessageBox.Show("Se eliminará el proveedor, esta acción no se puede deshacer. \n ¿Desea eliminar al proveedor?", 
                     "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    proveedor.BorrarProveedor(idProveedor);
+                    proveedor.BorrarProveedor(idProveedor, idRegistro);
                     ReestablecerProveedor();
                 }
             }
@@ -591,6 +605,18 @@ namespace Punto_de_ventas
             evento.NumberKeyPress(e);
         }
 
+        private void PrintDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Bitmap bm = new Bitmap(groupProveedorRecibo.Width, groupProveedorRecibo.Height);
+            groupProveedorRecibo.DrawToBitmap(bm, new Rectangle(0, 0, groupProveedorRecibo.Width, groupProveedorRecibo.Height));
+            e.Graphics.DrawImage(bm, 50, 50);
+        }
+
+        private void BtnProvedorImprimirRecibo_Click(object sender, EventArgs e)
+        {
+            printDocument2.Print();
+        }
+
         private void TxtProveedorEmail_TextChanged(object sender, EventArgs e)
         {
             if (txtProveedorEmail.Text == "")
@@ -606,7 +632,30 @@ namespace Punto_de_ventas
 
         private void TxtProveedorPago_TextChanged(object sender, EventArgs e)
         {
+            if (gridProveedores.CurrentRow == null)
+            {
+                lblProveedorPago.Text = "Seleccione el proveedor";
+                lblProveedorPago.ForeColor = Color.Red;
+                txtProveedorPago.Text = "";
+            }
+            else
+            {
+                if (txtProveedorPago.Text != "")
+                {
+                    String deuda1;
+                    Decimal deuda2, deuda3, deudaTotal;
+                    label_PagoCliente.Text = "Pagos de deuda";
+                    textBox_PagoscCliente.ForeColor = Color.LightSlateGray;
+                    deuda1 = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[2].Value);
+                    deuda1 = deuda1.Replace("$", "");
+                    deuda2 = Convert.ToDecimal(deuda1);
+                    deuda3 = Convert.ToDecimal(txtProveedorPago.Text);
 
+                    deudaTotal = deuda2 - deuda3;
+                    deudaActual = String.Format("{0:#,###,###,##0.00####}", deudaTotal);
+                    pago = String.Format("{0:#,###,###,##0.00####}", txtProveedorPago.Text);
+                }                
+            }
         }
 
         private void TxtProveedorPago_KeyPress(object sender, KeyPressEventArgs e)
@@ -614,7 +663,7 @@ namespace Punto_de_ventas
             evento.NumberDecimalKreyPress(txtProveedorPago, e);
         }
 
-        private void GuardarProveedor()
+        private void AgregarProveedor()
         {
             if (txtProveedorNombre.Text == "")
             {
@@ -709,16 +758,26 @@ namespace Punto_de_ventas
         {
             vistaActual = 2;
             numeroPagina = 1;
+            idRegistro = 0;
             accion = "insert";
             CargarDatos();
             txtProveedorNombre.Text = "";
             txtProveedorTelefono.Text = "";
             txtProveedorEmail.Text = "";
+            txtProveedorPago.Text = "";
             txtProveedorNombre.Focus();
             lblProveedorNombre.ForeColor = Color.LightSlateGray;
             lblProveedorEmail.ForeColor = Color.LightSlateGray;
             lblProveedorTelefono.ForeColor = Color.LightSlateGray;
             idProveedor = 0;
+            lblProveedorReciboNombre.Text = "Proveedor";
+            lblProveedorReciboDeuda.Text = "$0.0";
+            lblProveedorReciboPago.Text = "$0.0";
+            lblProveedorReciboFecha.Text = "dd/mm/aaaa";
+            radioProveedorAgregar.Checked = true;
+            radioProveedorAgregar.ForeColor = Color.DarkCyan;
+            lblProveedorPago.ForeColor = Color.DarkCyan;
+            proveedor.ObtenerReporte(gridProveedorReportes, idProveedor);
         }
 
         private void GridProveedores_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -751,6 +810,21 @@ namespace Punto_de_ventas
             lblProveedorReciboFecha.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[3].Value);
             lblProveedorReciboPago.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[4].Value);
             lblProveedorReciboDeuda.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[2].Value);
+        }
+
+        private void GuardarPagoProveedor()
+        {
+            if (txtProveedorPago.Text == "")
+            {
+                lblProveedorPago.Text = "Ingrese el monto a pagar";
+                lblProveedorPago.ForeColor = Color.Red;
+                txtProveedorPago.Focus();
+            }
+            else
+            {
+                proveedor.ActualizarReporte(deudaActual, pago, idProveedor);
+                ReestablecerProveedor();
+            }
         }
 
         #endregion

@@ -12,6 +12,7 @@ namespace Punto_de_ventas.ModelClass
     public class Proveedor : Conexion
     {
         private List<Proveedores> proveedores, proveedores1;
+        private List<ReportesProveedores> reporte;
 
         public List<Proveedores> GetProveedores()
         {
@@ -112,9 +113,10 @@ namespace Punto_de_ventas.ModelClass
             return list;
         }
 
-        public void BorrarProveedor(int id)
+        public void BorrarProveedor(int idP, int idR)
         {
-            TablaProveedores.Where(p => p.IdProveedor == id).Delete();
+            TablaReportesProveedores.Where(p => p.IdRegistro == idR).Delete();
+            TablaProveedores.Where(p => p.IdProveedor == idP).Delete();
         }
 
         public void ObtenerReporte(DataGridView grid, int id)
@@ -133,6 +135,24 @@ namespace Punto_de_ventas.ModelClass
                         };
             grid.DataSource = query.ToList();
             grid.Columns[0].Visible = false;
+        }
+
+        public void ActualizarReporte(string deudaActual, string ultimoPago, int idProveedor)
+        {
+            string fechaActual = DateTime.Now.ToString("dd/MM/yyyy");
+            reporte = GetReporte(idProveedor);
+            TablaReportesProveedores.Where(r => r.IdRegistro == reporte[0].IdRegistro)
+                .Set(r => r.IdProveedor, idProveedor)
+                .Set(r => r.SaldoActual, "$" + deudaActual)
+                .Set(r => r.FechaActual, fechaActual)
+                .Set(r => r.UltimoPago, "$" + ultimoPago)
+                .Set(r => r.FechaPago, fechaActual)
+                .Update();
+        }
+
+        private List<ReportesProveedores> GetReporte(int idProveedor)
+        {
+            return TablaReportesProveedores.Where(r => r.IdProveedor == idProveedor).ToList();
         }
     }
 }
