@@ -112,6 +112,9 @@ namespace Punto_de_ventas.ModelClass
             return list;
         }
 
-        
+        public void BorrarProveedor(int id)
+        {
+            TablaProveedores.Where(p => p.IdProveedor == id).Delete();
+        }        
     }
 }

@@ -487,17 +487,25 @@ namespace Punto_de_ventas
             txtProveedorPago.ForeColor = Color.DarkCyan;
         }
 
-        private void btnProveedorGuardar_Click(object sender, EventArgs e)
+        private void BtnProveedorGuardar_Click(object sender, EventArgs e)
         {
             GuardarProveedor();
         }
 
-        private void btnProveedorEliminar_Click(object sender, EventArgs e)
+        private void BtnProveedorEliminar_Click(object sender, EventArgs e)
         {
-
+            if (idProveedor > 0)
+            {
+                if (MessageBox.Show("Se eliminará el proveedor, esta acción no se puede deshacer. \n ¿Desea eliminar al proveedor?", 
+                    "Eliminar registro", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    proveedor.BorrarProveedor(idProveedor);
+                    ReestablecerProveedor();
+                }
+            }
         }
 
-        private void btnProveedorCancelar_Click(object sender, EventArgs e)
+        private void BtnProveedorCancelar_Click(object sender, EventArgs e)
         {
             ReestablecerProveedor();
         }
@@ -536,6 +544,31 @@ namespace Punto_de_ventas
                 lblProveedorTelefono.Text = "Proveedor";
                 lblProveedorTelefono.ForeColor = Color.Green;
             }
+        }
+
+        private void TxtProveedorBuscar_TextChanged(object sender, EventArgs e)
+        {
+            proveedor.BuscarProveedor(gridProveedores, txtProveedorBuscar.Text, 1, pageSize);
+        }
+
+        private void BtnProveedorPrimero_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnProveedorAnterior_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnProveedorSiguiente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnProveedorUltimo_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void TxtProveedorTelefono_KeyPress(object sender, KeyPressEventArgs e)
