@@ -115,6 +115,24 @@ namespace Punto_de_ventas.ModelClass
         public void BorrarProveedor(int id)
         {
             TablaProveedores.Where(p => p.IdProveedor == id).Delete();
-        }        
+        }
+
+        public void ObtenerReporte(DataGridView grid, int id)
+        {
+            var query = from p in TablaProveedores
+                        join r in TablaReportesProveedores on p.IdProveedor equals r.IdProveedor
+                        where p.IdProveedor == id
+                        select new
+                        {
+                            r.IdRegistro,
+                            p.Nombre,
+                            r.SaldoActual,
+                            r.FechaActual,
+                            r.UltimoPago,
+                            r.FechaPago
+                        };
+            grid.DataSource = query.ToList();
+            grid.Columns[0].Visible = false;
+        }
     }
 }

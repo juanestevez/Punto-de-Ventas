@@ -34,6 +34,7 @@ namespace Punto_de_ventas
             #region Proveedores
             radioProveedorAgregar.Checked = true;
             radioProveedorAgregar.ForeColor = Color.DarkCyan;
+            proveedor.ObtenerReporte(gridProveedorReportes, idProveedor);
             #endregion
         }
 
@@ -541,7 +542,7 @@ namespace Punto_de_ventas
             }
             else
             {
-                lblProveedorTelefono.Text = "Proveedor";
+                lblProveedorTelefono.Text = "Teléfono";
                 lblProveedorTelefono.ForeColor = Color.Green;
             }
         }
@@ -553,22 +554,36 @@ namespace Punto_de_ventas
 
         private void BtnProveedorPrimero_Click(object sender, EventArgs e)
         {
-
+            numeroPagina = 1;
+            lblProveedorPaginas.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+            proveedor.BuscarProveedor(gridProveedores, "", 1, pageSize);
         }
 
         private void BtnProveedorAnterior_Click(object sender, EventArgs e)
         {
-
+            if (numeroPagina > 1)
+            {
+                numeroPagina -= 1;
+                lblProveedorPaginas.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+                proveedor.BuscarProveedor(gridProveedores, "", numeroPagina, pageSize);
+            }            
         }
 
         private void BtnProveedorSiguiente_Click(object sender, EventArgs e)
         {
-
+            if (numeroPagina < pageCount)
+            {
+                numeroPagina += 1;
+                lblProveedorPaginas.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+                proveedor.BuscarProveedor(gridProveedores, "", numeroPagina, pageSize);
+            }            
         }
 
         private void BtnProveedorUltimo_Click(object sender, EventArgs e)
         {
-
+            numeroPagina = pageCount;
+            lblProveedorPaginas.Text = $"Página {numeroPagina.ToString()} de {pageCount.ToString()}";
+            proveedor.BuscarProveedor(gridProveedores, "", pageCount, pageSize);
         }
 
         private void TxtProveedorTelefono_KeyPress(object sender, KeyPressEventArgs e)
@@ -693,6 +708,7 @@ namespace Punto_de_ventas
         private void ReestablecerProveedor()
         {
             vistaActual = 2;
+            numeroPagina = 1;
             accion = "insert";
             CargarDatos();
             txtProveedorNombre.Text = "";
@@ -728,6 +744,13 @@ namespace Punto_de_ventas
             txtProveedorNombre.Text = Convert.ToString(gridProveedores.CurrentRow.Cells[1].Value);
             txtProveedorEmail.Text = Convert.ToString(gridProveedores.CurrentRow.Cells[2].Value);
             txtProveedorTelefono.Text = Convert.ToString(gridProveedores.CurrentRow.Cells[3].Value);
+
+            proveedor.ObtenerReporte(gridProveedorReportes, idProveedor);
+            idRegistro = Convert.ToInt16(gridProveedorReportes.CurrentRow.Cells[0].Value);
+            lblProveedorReciboNombre.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[1].Value);
+            lblProveedorReciboFecha.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[3].Value);
+            lblProveedorReciboPago.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[4].Value);
+            lblProveedorReciboDeuda.Text = Convert.ToString(gridProveedorReportes.CurrentRow.Cells[2].Value);
         }
 
         #endregion
