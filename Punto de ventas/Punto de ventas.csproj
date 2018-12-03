@@ -100,7 +100,9 @@
     <Compile Include="frmPrincipal.Designer.cs">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelClass\Caja.cs" />
     <Compile Include="ModelClass\Cliente.cs" />
+    <Compile Include="ModelClass\Encriptar.cs" />
     <Compile Include="ModelClass\Proveedor.cs" />
     <Compile Include="ModelClass\TextBoxEvent.cs" />
     <Compile Include="ModelClass\Usuario.cs" />

@@ -1,7 +1,6 @@
 ﻿using LinqToDB;
 using Punto_de_ventas.Connection;
 using Punto_de_ventas.Models;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
