@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `cajas` (
   PRIMARY KEY (`IdCaja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla puntoventas.cajasregistros
 CREATE TABLE IF NOT EXISTS `cajasregistros` (
   `IdCajaTempo` int(11) NOT NULL AUTO_INCREMENT,
@@ -41,7 +40,6 @@ CREATE TABLE IF NOT EXISTS `cajasregistros` (
   PRIMARY KEY (`IdCajaTempo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla puntoventas.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (
   `IdCliente` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,17 +51,15 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   PRIMARY KEY (`IdCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla puntoventas.proveedores
 CREATE TABLE IF NOT EXISTS `proveedores` (
   `IdProveedor` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) DEFAULT NULL,
-  `Telefono` varchar(50) DEFAULT NULL,
+  `Telefono` varchar(10) DEFAULT NULL,
   `Email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IdProveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla puntoventas.reportesclientes
 CREATE TABLE IF NOT EXISTS `reportesclientes` (
   `idRegistro` int(11) NOT NULL AUTO_INCREMENT,
@@ -76,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `reportesclientes` (
   PRIMARY KEY (`idRegistro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla puntoventas.reportesproveedores
 CREATE TABLE IF NOT EXISTS `reportesproveedores` (
   `idRegistro` int(11) NOT NULL AUTO_INCREMENT,
@@ -88,13 +83,12 @@ CREATE TABLE IF NOT EXISTS `reportesproveedores` (
   PRIMARY KEY (`idRegistro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla puntoventas.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `IdUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) DEFAULT NULL,
   `Apellido` varchar(50) DEFAULT NULL,
-  `Telefono` varchar(50) DEFAULT NULL,
+  `Telefono` varchar(10) DEFAULT NULL,
   `Direccion` varchar(50) DEFAULT NULL,
   `Email` varchar(50) DEFAULT NULL,
   `Usuario` varchar(50) DEFAULT NULL,
@@ -103,7 +97,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`IdUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- La exportación de datos fue deseleccionada.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

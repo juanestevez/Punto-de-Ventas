@@ -85,7 +85,6 @@
             // 
             // txtUsuario
             // 
-            this.txtUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtUsuario.Location = new System.Drawing.Point(7, 37);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(217, 20);
@@ -137,7 +136,7 @@
             this.btnIngresar.TabIndex = 3;
             this.btnIngresar.Text = "     Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = false;
-            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
+            this.btnIngresar.Click += new System.EventHandler(this.BtnIngresar_Click);
             // 
             // FrmLogin
             // 

@@ -20,7 +20,7 @@ namespace Punto_de_ventas
         List<Proveedores> numProveedores = new List<Proveedores>();
         Proveedor proveedor = new Proveedor();
 
-        public FrmPrincipal()
+        public FrmPrincipal(List<Usuarios> listUsuario, List<Cajas> listCaja)
         {
             InitializeComponent();
             

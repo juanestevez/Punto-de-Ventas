@@ -6,7 +6,7 @@ Sistema de aprendizaje C# y MySQL/MariaDB a través del curso en Udemy.
 
 ### Íconos
 
-- ##### [Freepik](https://www.flaticon.es/autores/freepik)
+##### [Freepik](https://www.flaticon.es/autores/freepik)
 
  - [Ventas](https://www.flaticon.es/icono-gratis/maquina-registradora_80954)
  - [Clientes](https://www.flaticon.es/icono-gratis/usuarios-multiples-en-silueta_33308)
@@ -19,7 +19,7 @@ Sistema de aprendizaje C# y MySQL/MariaDB a través del curso en Udemy.
  - [Cajero](https://www.flaticon.es/icono-gratis/empleado_631050)
 
 
-- ##### [Dave Gandy](https://www.flaticon.es/autores/dave-gandy)
+[Dave Gandy](https://www.flaticon.es/autores/dave-gandy)
  - [Categorías](https://www.flaticon.es/icono-gratis/etiqueta-forma-negra_25679)
  - [Primero](https://www.flaticon.es/icono-gratis/galon-izquierdo-doble_25257)
  - [Anterior](https://www.flaticon.es/icono-gratis/ngulo-que-apunta-a-la-izquierda_25322)
@@ -27,16 +27,17 @@ Sistema de aprendizaje C# y MySQL/MariaDB a través del curso en Udemy.
  - [Último](https://www.flaticon.es/icono-gratis/ngulo-doble-que-apunta-a-la-derecha_25358)
 
 
-- ##### [Google](https://www.flaticon.es/autores/google)
+[Google](https://www.flaticon.es/autores/google)
  - [Guardar](https://www.flaticon.es/icono-gratis/boton-guardar_60959)
  - [Eliminar](https://www.flaticon.es/icono-gratis/cubo-de-basura-boton-borrar_60761)
  - [Aceptar](https://www.flaticon.es/icono-gratis/comprobar-simbolo_60731)
  - [Cancelar](https://www.flaticon.es/icono-gratis/boton-cancelar_60578)
 
 
-- ##### [Pixel perfect](https://www.flaticon.es/autores/pixel-perfect)
+[Pixel perfect](https://www.flaticon.es/autores/pixel-perfect)
  - [Login](https://www.flaticon.es/icono-gratis/login_494923)
  - [Logout](https://www.flaticon.es/icono-gratis/login_494925)
+
 
 
 - [Proveedores](https://www.flaticon.es/icono-gratis/camion-de-carga_71222) por [Ctrlastudio ](https://www.flaticon.es/autores/ctrlastudio)

@@ -1,5 +1,7 @@
 ﻿using Punto_de_ventas.ModelClass;
+using Punto_de_ventas.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,6 +9,8 @@ namespace Punto_de_ventas
 {
     public partial class FrmLogin : Form
     {
+        private Usuario usuario = new Usuario();      
+
         public FrmLogin()
         {
             InitializeComponent();
@@ -39,7 +43,7 @@ namespace Punto_de_ventas
             }
         }
 
-        private void btnIngresar_Click(object sender, EventArgs e)
+        private void BtnIngresar_Click(object sender, EventArgs e)
         {
             Iniciar();
         }
@@ -62,6 +66,36 @@ namespace Punto_de_ventas
                 }
                 else
                 {
+                    object[] objects = usuario.Login(txtUsuario.Text, txtContrasena.Text);
+                    List<Usuarios> listUsuario = (List<Usuarios>)objects[0];
+                    List<Cajas> listCaja = (List<Cajas>)objects[1];
+
+                    if (listUsuario.Count > 0) // Contiene un usuario
+                    {
+                        if ("Administrador" == listUsuario[0].Rol)
+                        {
+                            FrmPrincipal _form = new FrmPrincipal(listUsuario, listCaja);
+                            _form.Show();
+                            Visible = false;
+                        }
+                        else
+                        {
+                            if (listCaja.Count > 0) // ¿Hay caja disponible?
+                            {
+                                FrmPrincipal _form = new FrmPrincipal(listUsuario, listCaja);
+                                _form.Show();
+                                Visible = false;
+                            }
+                            else
+                            {
+                                lblMensaje.Text = "No hay cajas disponibles";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Datos incorrectos";
+                    }
                 }
             }
         }

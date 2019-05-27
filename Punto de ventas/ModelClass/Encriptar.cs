@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 
 namespace Punto_de_ventas.ModelClass
@@ -13,21 +10,22 @@ namespace Punto_de_ventas.ModelClass
 
         public Encriptar()
         {
-            // Modo de funcionamiento
+            // establece el modo para el funcionamiento del algoritmo
             rm.Mode = CipherMode.CBC;
-            // Mode de relleno
+            // establece el modo de relleno utilizado en el algoritmo.
             rm.Padding = PaddingMode.PKCS7;
-            // Tamaño de la clave secreta
+            // establece el tamaño, en bits, para la clave secreta.
             rm.KeySize = 0x80;
-            // Tamaño del bloqueo
+            // establece el tamaño del bloque en bits para la operación criptográfica.
             rm.BlockSize = 0x80;
         }
 
-        public static string EncriptarDatos(string texto, string clave)
+        public static string EncryptData(string textData, string Encryptionkey)
         {
-            byte[] passBytes = Encoding.UTF8.GetBytes(clave);
-            byte[] EncryptionkeyBytes = new byte[] { 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            byte[]
+                passBytes = Encoding.UTF8.GetBytes(Encryptionkey);
+            // establece el vector de inicialización (IV) para el algoritmo simétrico   
+            byte[] EncryptionkeyBytes = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
             int len = passBytes.Length;
             if (len > EncryptionkeyBytes.Length)
             {
@@ -36,27 +34,27 @@ namespace Punto_de_ventas.ModelClass
             Array.Copy(passBytes, EncryptionkeyBytes, len);
             rm.Key = EncryptionkeyBytes;
             rm.IV = EncryptionkeyBytes;
+            // Crea un objeto AES simétrico con la clave actual y el vector de inicialización IV.
             ICryptoTransform objtransform = rm.CreateEncryptor();
-            byte[] textDataByte = Encoding.UTF8.GetBytes(texto);
-
+            byte[] textDataByte = Encoding.UTF8.GetBytes(textData);
             return Convert.ToBase64String(objtransform.TransformFinalBlock(textDataByte, 0, textDataByte.Length));
         }
 
-        public static string DesencriptarDatos(string textoEncriptado, string claveEncriptacion)
+        public static string DecryptData(string EncryptedText, string Encryptionkey)
         {
-            byte[] encryptedTextByte = Convert.FromBase64String(textoEncriptado);
-            byte[] passBytes = Encoding.UTF8.GetBytes(claveEncriptacion);
-            byte[] encryptionKeyBytes = new byte[0x10];
+            byte[] encryptedTextByte = Convert.FromBase64String(EncryptedText);
+            byte[] passBytes = Encoding.UTF8.GetBytes(Encryptionkey);
+            byte[] EncryptionkeyBytes = new byte[0x10];
             int len = passBytes.Length;
-            if (len > encryptionKeyBytes.Length)
+            if (len > EncryptionkeyBytes.Length)
             {
-                len = encryptionKeyBytes.Length;
+                len = EncryptionkeyBytes.Length;
             }
-            Array.Copy(passBytes, encryptionKeyBytes, len);
-            rm.Key = encryptionKeyBytes;
-            rm.IV = encryptionKeyBytes;
-            byte[] textByte = rm.CreateDecryptor().TransformFinalBlock(encryptedTextByte, 0, encryptedTextByte.Length);
-            return Encoding.UTF8.GetString(textByte);
+            Array.Copy(passBytes, EncryptionkeyBytes, len);
+            rm.Key = EncryptionkeyBytes;
+            rm.IV = EncryptionkeyBytes;
+            byte[] TextByte = rm.CreateDecryptor().TransformFinalBlock(encryptedTextByte, 0, encryptedTextByte.Length);
+            return Encoding.UTF8.GetString(TextByte);
         }
     }
 }
